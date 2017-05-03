@@ -1,0 +1,109 @@
+package com.dave.smartbushome.founction_command;
+
+import com.dave.smartbushome.MainActivity;
+import com.dave.smartbushome.udp.udp_socket;
+
+/**
+ * Created by Administrator on 16-5-30.
+ */
+public class ACcontrol {
+    public boolean ACControl(byte byteSubnetID, byte byteDeviceID, int intType,
+                             int intValue,udp_socket mydupsocket) {
+        boolean blnSuccess = false;
+        try {
+            int intOP = 0xE3D8;
+            short shortLenOfAddtionalBuf;
+
+            byte[] arrayAddtional = new byte[2];
+            arrayAddtional[0] = (byte) intType;
+            arrayAddtional[1] = (byte) intValue;
+
+            shortLenOfAddtionalBuf = (short) (arrayAddtional.length);
+            blnSuccess = mydupsocket.SendUDPBuffer(arrayAddtional, shortLenOfAddtionalBuf,
+                    intOP, byteSubnetID, byteDeviceID, false);
+
+        } catch (Exception e) {
+            // Toast.makeText(getApplicationContext(), e.getMessage(),
+            // Toast.LENGTH_SHORT).show();
+        } finally {
+
+        }
+        return blnSuccess;
+    }
+
+    public void ACReadCFFlag(byte subid,byte devid,udp_socket mydupsocket){
+        try {
+            int intOP = 0xE120;
+            short shortLenOfAddtionalBuf;
+
+            byte[] arrayAddtional = new byte[0];
+
+            shortLenOfAddtionalBuf = (short) (arrayAddtional.length);
+            boolean blnSuccess = mydupsocket.SendUDPBuffer(arrayAddtional, shortLenOfAddtionalBuf,
+                    intOP, subid, devid, false);
+
+        } catch (Exception e) {
+            // Toast.makeText(getApplicationContext(), e.getMessage(),
+            // Toast.LENGTH_SHORT).show();
+        } finally {
+
+        }
+    }
+
+    public void ACReadTempRange(byte subid,byte devid,udp_socket mydupsocket){
+        try {
+            int intOP = 0x1900;
+            short shortLenOfAddtionalBuf;
+
+            byte[] arrayAddtional = new byte[0];
+
+            shortLenOfAddtionalBuf = (short) (arrayAddtional.length);
+            boolean blnSuccess = mydupsocket.SendUDPBuffer(arrayAddtional, shortLenOfAddtionalBuf,
+                    intOP, subid, devid, false);
+
+        } catch (Exception e) {
+            // Toast.makeText(getApplicationContext(), e.getMessage(),
+            // Toast.LENGTH_SHORT).show();
+        } finally {
+
+        }
+    }
+
+    public void ACReadCountFanAndMode(byte subid,byte devid,udp_socket mydupsocket){
+        try {
+            int intOP = 0xE124;
+            short shortLenOfAddtionalBuf;
+
+            byte[] arrayAddtional = new byte[0];
+
+            shortLenOfAddtionalBuf = (short) (arrayAddtional.length);
+            boolean blnSuccess = mydupsocket.SendUDPBuffer(arrayAddtional, shortLenOfAddtionalBuf,
+                    intOP, subid, devid, false);
+
+        } catch (Exception e) {
+            // Toast.makeText(getApplicationContext(), e.getMessage(),
+            // Toast.LENGTH_SHORT).show();
+        } finally {
+
+        }
+    }
+
+    public void ACReadCState(byte subid,byte devid,udp_socket mydupsocket){
+        try {
+            int intOP = 0xE0EC;
+            short shortLenOfAddtionalBuf;
+
+            byte[] arrayAddtional = new byte[1];
+            arrayAddtional[0]=0;
+            shortLenOfAddtionalBuf = (short) (arrayAddtional.length);
+            boolean blnSuccess = mydupsocket.SendUDPBuffer(arrayAddtional, shortLenOfAddtionalBuf,
+                    intOP, subid, devid, false);
+
+        } catch (Exception e) {
+            // Toast.makeText(getApplicationContext(), e.getMessage(),
+            // Toast.LENGTH_SHORT).show();
+        } finally {
+
+        }
+    }
+}

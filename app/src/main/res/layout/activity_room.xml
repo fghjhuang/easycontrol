@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.dave.smartbushome.RoomActivity"
+    android:background="#000000"
+    android:id="@+id/roomacbg">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/room_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="#00067c"
+        style="@style/MenuStyle"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
+
+    <com.dave.smartbushome.assist.DraggableGridViewType2
+        android:id="@+id/draggable_grid_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp"
+        android:layout_below="@+id/room_toolbar">
+
+
+    </com.dave.smartbushome.assist.DraggableGridViewType2>
+
+</RelativeLayout>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical">
+        <com.dave.smartbushome.assist.SwipeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:id="@+id/lighttype3swipe"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:minHeight="?android:attr/listPreferredItemHeight">
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:id="@+id/type3linear">
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:id="@+id/ltype3_icon"
+        android:layout_weight="1.5"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="light"
+        android:id="@+id/ltype3_remark"
+        android:layout_weight="1.3"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:textSize="15dp" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_weight="0.2" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="unknown"
+        android:id="@+id/tv_state"
+        android:layout_weight="1.3"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/statecolor" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/color"
+        android:layout_weight="1.1"
+        android:layout_gravity="center" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_weight="0.1" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:id="@+id/setcolor"
+        android:layout_weight="1.5"
+        android:layout_gravity="center"
+        android:textSize="12dp"
+        android:textColor="#000000"
+        android:background="@mipmap/light_type3_on" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_weight="0.1" />
+
+    <CheckBox
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:id="@+id/ltype_checkbox"
+        android:layout_weight="0.7"
+        android:button="@drawable/checkbox_checked_style"
+        android:checked="false"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+</LinearLayout>
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="#d20001" >
+
+                <LinearLayout
+                    android:id="@+id/lighttype3_delete"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    >
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/ic_delete"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </com.dave.smartbushome.assist.SwipeLayout>
+    </LinearLayout>
+</merge>

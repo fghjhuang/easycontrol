@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".about.AboutActivity"
+    >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/about_toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="#00067c"
+        style="@style/MenuStyle"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ABOUT"
+        android:id="@+id/textView29"
+        android:textColor="#060606"
+        android:layout_below="@+id/about_toolbar"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="This Application has been Developped for Smart G4"
+        android:id="@+id/textView30"
+        android:layout_below="@+id/textView29"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Terms and Privacy"
+        android:id="@+id/textView31"
+        android:layout_marginBottom="39dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Smart G4"
+        android:id="@+id/textView32"
+        android:layout_above="@+id/textView33"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Copyright @2016 SmartG4. AllRightsReserved."
+        android:id="@+id/textView33"
+        android:layout_above="@+id/textView31"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Version Number： 1.6.3"
+        android:id="@+id/textView34"
+        android:layout_marginTop="83dp"
+        android:layout_below="@+id/textView30"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="ReleaseDate：28 Apr.2017"
+        android:id="@+id/textView35"
+        android:layout_below="@+id/textView34"
+        android:gravity="center"
+        android:layout_alignRight="@+id/textView34"
+        android:layout_alignEnd="@+id/textView34"
+        android:layout_alignLeft="@+id/textView34"
+        android:layout_alignStart="@+id/textView34" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Check for Updates"
+        android:id="@+id/textView40"
+        android:layout_below="@+id/textView35"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="42dp"
+        android:textColor="@drawable/textcolorstyle"
+        android:clickable="true"
+        android:onClick="updates" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="User Manual"
+        android:id="@+id/textView41"
+        android:layout_below="@+id/textView40"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:textColor="@drawable/textcolorstyle"
+        android:clickable="true"
+        android:onClick="help" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/update"
+        android:id="@+id/textView107"
+        android:layout_below="@+id/textView41"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/textView32"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="12dp" />
+
+</RelativeLayout>
