@@ -68,7 +68,7 @@ public class MusicFolderAdapter extends BaseAdapter {
             if(adapterType==1){
                 img.setImageDrawable(context.getResources().getDrawable(R.drawable.musicmenu_folder));
             }else if(adapterType==2){
-
+                img.setImageDrawable(context.getResources().getDrawable(R.drawable.mp3icon));
             }
             mView.put(position, view);
         }

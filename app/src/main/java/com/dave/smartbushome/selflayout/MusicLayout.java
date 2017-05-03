@@ -728,7 +728,6 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
                         menugridview.setVisibility(GONE);
                         songlistview.setVisibility(VISIBLE);
                         songlistview.setAdapter(folderadapter);
-
                         adapternum=5;
                         listcontrol=false;
                         Toast.makeText(rootcontext, "still developing", Toast.LENGTH_SHORT).show();
@@ -842,7 +841,10 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
                     setplaybuttonstate("play");
                     break;
                 case 5:
-
+                    MusicFolderAdapter folderadapter = new MusicFolderAdapter(getContext(),songadapter.get(position).getsonglist(),2);
+                    songlistview.setAdapter(folderadapter);
+                    listcontrol=true;
+                    adapternum=6;
                     break;
                 case 6:
                     break;
@@ -850,12 +852,19 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
 
         }
     };
-
+   //todo longclick folder or song
     private AdapterView.OnItemLongClickListener folderlongclick=new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-            return false;
+            switch (adapternum){
+                case 5:
+                    showPopupfolderMenu(view);
+                    break;
+                case 6:
+                    showPopupmp3Menu(view);
+                    break;
+            }
+            return true;
         }
     };
     /**
@@ -922,7 +931,10 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
             menugridview.setAdapter(menuadapter);
             listcontrol=false;
         }else if(adapternum==6){//folder-song
-
+            MusicFolderAdapter folderadapter = new MusicFolderAdapter(getContext(),albumlist,1);
+            songlistview.setAdapter(folderadapter);
+            adapternum=5;
+            listcontrol=false;
         }
     }
     /**********音量控制**********/
@@ -1023,7 +1035,58 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
         });
 
         popupMenu.show();
+    }
+    private void showPopupfolderMenu(final View popview) {
+        // View当前PopupMenu显示的相对View的位置
+        PopupMenu popupMenu = new PopupMenu(rootcontext, popview);
 
+        // menu布局
+        popupMenu.getMenuInflater().inflate(R.menu.music_folder_setting, popupMenu.getMenu());
+
+        // menu的item点击事件
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.music_folder_add:
+
+                        break;
+                    case R.id.music_folder_delete:
+
+                        break;
+                }
+                return false;
+
+            }
+        });
+
+        popupMenu.show();
+    }
+    private void showPopupmp3Menu(final View popview) {
+        // View当前PopupMenu显示的相对View的位置
+        PopupMenu popupMenu = new PopupMenu(rootcontext, popview);
+
+        // menu布局
+        popupMenu.getMenuInflater().inflate(R.menu.music_mp3file_setting, popupMenu.getMenu());
+
+        // menu的item点击事件
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.music_mp3_add:
+
+                        break;
+                    case R.id.music_mp3_delete:
+
+                        break;
+                }
+                return false;
+
+            }
+        });
+
+        popupMenu.show();
     }
     /*************************获取数据库数据********************/
     Runnable getdatarun=new Runnable() {

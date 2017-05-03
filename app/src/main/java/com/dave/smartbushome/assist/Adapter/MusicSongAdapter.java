@@ -94,6 +94,9 @@ public class MusicSongAdapter extends BaseAdapter {
         }
     }
 
+    public List<String> getsonglist(){
+        return namearray;
+    }
     public String getselectSongname(){
         return namearray.get(selectItem);
     }
