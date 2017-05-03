@@ -2,23 +2,22 @@ package com.dave.smartbushome.assist.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.BaseAdapter;
+
 import com.dave.smartbushome.R;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by Administrator on 16-6-15.
  */
-public class MusicSongAdapter extends BaseAdapter {
+public class MusicFolderAdapter extends BaseAdapter {
 
 
     private Context context;
@@ -29,10 +28,13 @@ public class MusicSongAdapter extends BaseAdapter {
     private int  selectItem=-1;
     public static final int select   = 0x60b5facb;
     private String[] colorarray={"60ffffff", "60dcdcdc"};
-    public MusicSongAdapter(Context context,List<String> songdata){
+    private int adapterType=0;
+    //type:1folder;2:song
+    public MusicFolderAdapter(Context context, List<String> songdata,int type){
         this.context = context;
         this.namearray=songdata;
         size=namearray.size();
+        adapterType=type;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mView = new HashMap<Integer, View>();
     }
@@ -58,9 +60,16 @@ public class MusicSongAdapter extends BaseAdapter {
         View view = mView.get(position);
         if(view==null)
         {
-            view = inflater.inflate(R.layout.music_songitem, null);
-            TextView name = (TextView)view.findViewById(R.id.item_songname);
-            name.setText(" "+(position+1)+": "+namearray.get(position));
+            view = inflater.inflate(R.layout.adapter_music_file, null);
+            TextView name = (TextView)view.findViewById(R.id.adapter_musicfile_name);
+            ImageView img=(ImageView)view.findViewById(R.id.adapter_musicfile_img);
+            name.setText( namearray.get(position));
+
+            if(adapterType==1){
+                img.setImageDrawable(context.getResources().getDrawable(R.drawable.musicmenu_folder));
+            }else if(adapterType==2){
+
+            }
             mView.put(position, view);
         }
 

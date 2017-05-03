@@ -30,6 +30,7 @@ import com.dave.smartbushome.MainActivity;
 import com.dave.smartbushome.R;
 import com.dave.smartbushome.assist.Adapter.LightIconAdapter;
 import com.dave.smartbushome.assist.Adapter.MusicBGAdapter;
+import com.dave.smartbushome.assist.Adapter.MusicFolderAdapter;
 import com.dave.smartbushome.assist.AtoZlist.AtoZAdapter;
 import com.dave.smartbushome.assist.AtoZlist.CharacterParser;
 import com.dave.smartbushome.assist.AtoZlist.PinyinComparator;
@@ -110,6 +111,7 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
     /*------------adapters---------*/
     MusicOptionAdapter menuadapter;
     MusicSongAdapter likesongadapter;
+    MusicSongAdapter filefolderadapter,foldersongadapter;
     MusicSongAdapter currentSongadapter;
     List<MusicSongAdapter> songadapter=new ArrayList<MusicSongAdapter>();
     AtoZAdapter allsongadapter;
@@ -172,6 +174,7 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
         sb_setvoice.setOnSeekBarChangeListener(voicechange);
         menugridview.setOnItemClickListener(menuclick);
         songlistview.setOnItemClickListener(songclick);
+        songlistview.setOnItemLongClickListener(folderlongclick);
         // 设置右侧触摸监听
         sideBar.setOnTouchingLetterChangedListener(righttouch);
         menuadapter = new MusicOptionAdapter(context,menulist);
@@ -721,6 +724,13 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
                         listcontrol=true;
                         break;
                     case 5://todo 进入文件管理，可以增删歌曲
+                        MusicFolderAdapter folderadapter = new MusicFolderAdapter(getContext(),albumlist,1);
+                        menugridview.setVisibility(GONE);
+                        songlistview.setVisibility(VISIBLE);
+                        songlistview.setAdapter(folderadapter);
+
+                        adapternum=5;
+                        listcontrol=false;
                         Toast.makeText(rootcontext, "still developing", Toast.LENGTH_SHORT).show();
                         break;
                     default:
@@ -790,39 +800,62 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
         //提交
         editor.commit();
     }
-    //adapternum:0:menu;  1:album menu;   2:album-song;    3:all song;    4:like song
+    //adapternum:0:menu;  1:album menu;   2:album-song;    3:all song;    4:like song  5:folder 6:folder-song
     private AdapterView.OnItemClickListener songclick=new AdapterView.OnItemClickListener(){
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if(adapternum!=3){
-                currentSongadapter.setSelectItem(position);
-                currentSongadapter.notifyDataSetInvalidated();
-                for (int i = 0; i < data.size(); i++) {
-                    // int dot=data.get(i).song_name.length()-4;
-                    if ((currentSongadapter.getselectSongname()).equals(data.get(i).song_name)) {
-                        selectedsong = data.get(i);
+            switch (adapternum){
+                case 0:
+                case 1:
+                case 2:
+                case 4:
+                    currentSongadapter.setSelectItem(position);
+                    currentSongadapter.notifyDataSetInvalidated();
+                    for (int i = 0; i < data.size(); i++) {
+                        // int dot=data.get(i).song_name.length()-4;
+                        if ((currentSongadapter.getselectSongname()).equals(data.get(i).song_name)) {
+                            selectedsong = data.get(i);
+                        }
                     }
-                }
-            }else{
-                allsongadapter.setSelectItem(position);
-                allsongadapter.notifyDataSetInvalidated();
-                //Toast.makeText(getContext(), allsongadapter.getselectSongname(), Toast.LENGTH_SHORT).show();
-                for (int i = 0; i < data.size(); i++) {
-                    // int dot=data.get(i).song_name.length()-4;
-                    if ((allsongadapter.getselectSongname()).equals(data.get(i).song_name)) {
-                        selectedsong = data.get(i);
+                    byte[] songbyte = new byte[2];
+                    songbyte[0] = (byte) ((selectedsong.song_num &0xff00)>>8);
+                    songbyte[1] = (byte) ((selectedsong.song_num ) - (selectedsong.song_num&0xff00));
+                    mc.MusicControl((byte) ControlSpecSong, (byte) (selectedsong.album_num), songbyte[0], songbyte[1], (byte) thismusic.subnetID, (byte) thismusic.deviceID,MainActivity.mydupsocket);
+                    setsong(selectedsong);
+                    setplaybuttonstate("play");
+                    break;
+                case 3:
+                    allsongadapter.setSelectItem(position);
+                    allsongadapter.notifyDataSetInvalidated();
+                    //Toast.makeText(getContext(), allsongadapter.getselectSongname(), Toast.LENGTH_SHORT).show();
+                    for (int i = 0; i < data.size(); i++) {
+                        // int dot=data.get(i).song_name.length()-4;
+                        if ((allsongadapter.getselectSongname()).equals(data.get(i).song_name)) {
+                            selectedsong = data.get(i);
+                        }
                     }
-                }
+                    byte[] songbyte3 = new byte[2];
+                    songbyte3[0] = (byte) ((selectedsong.song_num &0xff00)>>8);
+                    songbyte3[1] = (byte) ((selectedsong.song_num ) - (selectedsong.song_num&0xff00));
+                    mc.MusicControl((byte) ControlSpecSong, (byte) (selectedsong.album_num), songbyte3[0], songbyte3[1], (byte) thismusic.subnetID, (byte) thismusic.deviceID,MainActivity.mydupsocket);
+                    setsong(selectedsong);
+                    setplaybuttonstate("play");
+                    break;
+                case 5:
+
+                    break;
+                case 6:
+                    break;
             }
-            byte[] songbyte = new byte[2];
-            songbyte[0] = (byte) ((selectedsong.song_num &0xff00)>>8);
-            songbyte[1] = (byte) ((selectedsong.song_num ) - (selectedsong.song_num&0xff00));
-            mc.MusicControl((byte) ControlSpecSong, (byte) (selectedsong.album_num), songbyte[0], songbyte[1], (byte) thismusic.subnetID, (byte) thismusic.deviceID,MainActivity.mydupsocket);
-            setsong(selectedsong);
-            setplaybuttonstate("play");
-          /*  MusicNotifyReceiver.subnetID=thismusic.subnetID;
-            MusicNotifyReceiver.deviceID=thismusic.deviceID;
-            MusicNotification.sendResidentNoticeType0(MainActivity.maincontext, false, selectedsong.song_name);*/
+
+        }
+    };
+
+    private AdapterView.OnItemLongClickListener folderlongclick=new AdapterView.OnItemLongClickListener() {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+            return false;
         }
     };
     /**
@@ -882,6 +915,14 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
             songlistview.setVisibility(GONE);
             menugridview.setAdapter(menuadapter);
             listcontrol=false;
+        }else if(adapternum==5){//folder
+            adapternum=0;
+            menugridview.setVisibility(VISIBLE);
+            songlistview.setVisibility(GONE);
+            menugridview.setAdapter(menuadapter);
+            listcontrol=false;
+        }else if(adapternum==6){//folder-song
+
         }
     }
     /**********音量控制**********/
