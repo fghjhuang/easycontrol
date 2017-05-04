@@ -10,7 +10,9 @@ import java.util.Random;
  */
 public class musiccontrol {
 
+	public void deletesong(int byteSubnetID, int byteDeviceID,String albumname,String songname,udp_socket mydupsocket){
 
+	}
 	public void sentsongcontent(int byteSubnetID, int byteDeviceID,byte[] random,byte[] content,byte[] revlength,udp_socket mydupsocket){
 		byte[] sent=new byte[11+content.length];
 		sent[0]=0x04;

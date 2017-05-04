@@ -39,6 +39,7 @@ import com.dave.smartbushome.assist.AtoZlist.SortModel;
 import com.dave.smartbushome.assist.Adapter.MusicAlbumAdapter;
 import com.dave.smartbushome.assist.Adapter.MusicOptionAdapter;
 import com.dave.smartbushome.assist.Adapter.MusicSongAdapter;
+import com.dave.smartbushome.assist.FilePicker.FolderFilePicker;
 import com.dave.smartbushome.assist.MusicNotification;
 import com.dave.smartbushome.assist.MusicNotifyReceiver;
 import com.dave.smartbushome.assist.rollingTextview;
@@ -111,7 +112,7 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
     /*------------adapters---------*/
     MusicOptionAdapter menuadapter;
     MusicSongAdapter likesongadapter;
-    MusicSongAdapter filefolderadapter,foldersongadapter;
+    MusicFolderAdapter filefolderadapter,foldersongadapter;
     MusicSongAdapter currentSongadapter;
     List<MusicSongAdapter> songadapter=new ArrayList<MusicSongAdapter>();
     AtoZAdapter allsongadapter;
@@ -724,10 +725,10 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
                         listcontrol=true;
                         break;
                     case 5://todo 进入文件管理，可以增删歌曲
-                        MusicFolderAdapter folderadapter = new MusicFolderAdapter(getContext(),albumlist,1);
+                        filefolderadapter = new MusicFolderAdapter(getContext(),albumlist,1);
                         menugridview.setVisibility(GONE);
                         songlistview.setVisibility(VISIBLE);
-                        songlistview.setAdapter(folderadapter);
+                        songlistview.setAdapter(filefolderadapter);
                         adapternum=5;
                         listcontrol=false;
                         Toast.makeText(rootcontext, "still developing", Toast.LENGTH_SHORT).show();
@@ -841,8 +842,8 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
                     setplaybuttonstate("play");
                     break;
                 case 5:
-                    MusicFolderAdapter folderadapter = new MusicFolderAdapter(getContext(),songadapter.get(position).getsonglist(),2);
-                    songlistview.setAdapter(folderadapter);
+                    foldersongadapter = new MusicFolderAdapter(getContext(),songadapter.get(position).getsonglist(),2);
+                    songlistview.setAdapter(foldersongadapter);
                     listcontrol=true;
                     adapternum=6;
                     break;
@@ -1036,6 +1037,7 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
 
         popupMenu.show();
     }
+    //todo popup
     private void showPopupfolderMenu(final View popview) {
         // View当前PopupMenu显示的相对View的位置
         PopupMenu popupMenu = new PopupMenu(rootcontext, popview);
@@ -1048,9 +1050,7 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.music_folder_add:
 
-                        break;
                     case R.id.music_folder_delete:
 
                         break;
@@ -1074,9 +1074,18 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.music_mp3_add:
-
-                        break;
+                   /* case R.id.music_mp3_add:
+                        FolderFilePicker picker = new FolderFilePicker(rootcontext,
+                                new FolderFilePicker.PickPathEvent() {
+                                    @Override
+                                    public void onPickEvent(String resultPath) {
+                                        String mPath = resultPath;
+                                        Toast.makeText(rootcontext, mPath,
+                                                Toast.LENGTH_LONG).show();
+                                    }
+                                }, ".MP3",".mp3");
+                        picker.show();
+                        break;*/
                     case R.id.music_mp3_delete:
 
                         break;
