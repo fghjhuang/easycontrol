@@ -463,7 +463,7 @@ public class EnergyActivity extends AppCompatActivity {
                                 powerresult.setText("instantaneous power: "+((double)((Integer.parseInt(voltagevalue.getText().toString()))*
                                         value)/1000)+"W");
                             }catch (Exception e){
-
+                                e.printStackTrace();
                             }
                             generateData();
                         break;

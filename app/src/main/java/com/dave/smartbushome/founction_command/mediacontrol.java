@@ -45,8 +45,6 @@ public class mediacontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
         return blnSuccess;
     }
@@ -89,8 +87,6 @@ public class mediacontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
         return blnSuccess;
     }
@@ -131,8 +127,6 @@ public class mediacontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
         return blnSuccess;
     }
@@ -172,8 +166,6 @@ public class mediacontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
         return blnSuccess;
     }
@@ -215,8 +207,7 @@ public class mediacontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
+            e.printStackTrace();
         }
         return blnSuccess;
     }

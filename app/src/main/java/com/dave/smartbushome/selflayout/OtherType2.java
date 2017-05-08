@@ -344,7 +344,7 @@ public class OtherType2 extends LinearLayout implements View.OnClickListener,Vie
         }
         catch (Exception e)
         {
-
+            e.printStackTrace();
         }
     }
 }

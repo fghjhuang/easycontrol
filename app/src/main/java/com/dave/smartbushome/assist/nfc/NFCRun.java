@@ -169,7 +169,7 @@ public class NFCRun {
                 }
 
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
     }

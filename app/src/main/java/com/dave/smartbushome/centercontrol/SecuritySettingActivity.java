@@ -459,7 +459,7 @@ public class SecuritySettingActivity extends AppCompatActivity {
                 secc.ReadWatchDog((byte) thissecurity.subnetID, (byte) thissecurity.deviceID, selectArea,MainActivity.mydupsocket);
 
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
     }
@@ -480,7 +480,7 @@ public class SecuritySettingActivity extends AppCompatActivity {
                 }
 
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
             try {
                 Thread.sleep(100);

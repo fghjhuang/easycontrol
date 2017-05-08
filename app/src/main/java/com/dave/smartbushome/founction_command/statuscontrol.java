@@ -35,8 +35,6 @@ public class statuscontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
     }
 
@@ -57,8 +55,6 @@ public class statuscontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
     }
 
@@ -76,8 +72,6 @@ public class statuscontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
     }
 
@@ -95,8 +89,6 @@ public class statuscontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
     }
 
@@ -114,8 +106,6 @@ public class statuscontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
     }
 
@@ -133,8 +123,7 @@ public class statuscontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
+            e.printStackTrace();
         }
     }
 

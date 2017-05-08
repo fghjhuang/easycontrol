@@ -77,7 +77,7 @@ public class audio_incontrol {
                     byteSubnetID, byteDeviceID, false);
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 }

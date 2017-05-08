@@ -371,7 +371,7 @@ public class LightType4 extends LinearLayout implements View.OnLongClickListener
         }
         catch (Exception e)
         {
-
+            e.printStackTrace();
         }
     }
     public int ToColor(String data){
@@ -409,7 +409,7 @@ public class LightType4 extends LinearLayout implements View.OnLongClickListener
             }
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 }

@@ -79,8 +79,6 @@ public class curtaincontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
     }
 
@@ -112,8 +110,6 @@ public class curtaincontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
     }
 }

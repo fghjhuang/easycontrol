@@ -48,8 +48,6 @@ public class lightcontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
         return blnSuccess;
     }
@@ -87,8 +85,6 @@ public class lightcontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
     }
     public byte getcolor(String argb,int color){
@@ -136,8 +132,6 @@ public class lightcontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
     }
 }

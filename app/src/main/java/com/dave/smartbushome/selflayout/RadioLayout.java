@@ -223,7 +223,7 @@ public class RadioLayout extends RelativeLayout {
                                 writename[r] = name[r];
                             }
                         } catch (Exception e) {
-
+                            e.printStackTrace();
                         }
                         rc.WriteChannelValue(x.channel_num, Integer.parseInt(x.channel_value), writename, (byte) thismusic.subnetID, (byte) thismusic.deviceID,MainActivity.mydupsocket);
                         alldata.clear();
@@ -359,7 +359,7 @@ public class RadioLayout extends RelativeLayout {
         }
         catch (Exception e)
         {
-
+            e.printStackTrace();
         }
     }
     public String channelvalue(byte st,byte sd){

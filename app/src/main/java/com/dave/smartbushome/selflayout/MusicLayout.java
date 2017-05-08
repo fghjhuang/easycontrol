@@ -403,7 +403,7 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
                                     //reflashstep=true;
                                     receivehandler.postDelayed(getselectmusic,20);
                                 }catch (Exception e){
-
+                                    e.printStackTrace();
                                 }
 
                             }
@@ -431,7 +431,7 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
         try{
             length=endbyte-startbyte;
         }catch (Exception e){
-
+            e.printStackTrace();
         }
             byte[] result=new byte[length];
         try{
@@ -439,7 +439,7 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
                 result[i]=data[startbyte+i];
             }
         }catch (Exception e){
-
+            e.printStackTrace();
         }
             return result;
     }
@@ -724,7 +724,7 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
                         showPopupMenu(view);
                         listcontrol=true;
                         break;
-                    case 5://todo 进入文件管理，可以增删歌曲
+                    case 5://todo 进入文件管理，可以删除歌曲
                         filefolderadapter = new MusicFolderAdapter(getContext(),albumlist,1);
                         menugridview.setVisibility(GONE);
                         songlistview.setVisibility(VISIBLE);
@@ -747,38 +747,7 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
             }
         }
     };
-   //todo mp3 to byte
-    public  void File2byte(String filePath)
-    {
-        String dbDir=android.os.Environment.getExternalStorageDirectory().getPath();
-        dbDir += "/Music/smarttest.MP3";//数据库所在目录
-        byte[] buffer = null;
-        try
-        {
-            File file = new File(filePath);
-            FileInputStream fis = new FileInputStream(file);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] b = new byte[1024];
-            int n;
-            while ((n = fis.read(b)) != -1)
-            {
-                bos.write(b, 0, n);
 
-            }
-            fis.close();
-            bos.close();
-            buffer = bos.toByteArray();
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        // return buffer;
-    }
 
     public com.bigkoo.alertview.OnItemClickListener selectbg=new com.bigkoo.alertview.OnItemClickListener() {
         public void onItemClick(Object o, int position) {
@@ -853,7 +822,7 @@ public class MusicLayout extends RelativeLayout implements View.OnClickListener 
 
         }
     };
-   //todo longclick folder or song
+
     private AdapterView.OnItemLongClickListener folderlongclick=new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {

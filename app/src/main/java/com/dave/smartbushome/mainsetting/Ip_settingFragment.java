@@ -72,7 +72,7 @@ public class Ip_settingFragment extends Fragment implements View.OnClickListener
                 ddnscha.setChecked(false);
             }
         }catch (Exception e){
-
+            e.printStackTrace();
         }
 
         save=(Button)view.findViewById(R.id.ams_save);

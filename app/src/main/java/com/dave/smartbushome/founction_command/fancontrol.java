@@ -46,10 +46,9 @@ public class fancontrol {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
         return blnSuccess;
     }

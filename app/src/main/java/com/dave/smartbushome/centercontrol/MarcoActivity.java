@@ -288,7 +288,7 @@ public class MarcoActivity extends AppCompatActivity {
                 }
 
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
     }

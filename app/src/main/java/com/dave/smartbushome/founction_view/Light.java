@@ -608,7 +608,7 @@ public class Light extends Fragment {
                             }
                         }
                     }catch (Exception e){
-
+                        e.printStackTrace();
                     }
 
                     

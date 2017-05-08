@@ -421,7 +421,7 @@ public class LightType1 extends LinearLayout implements View.OnClickListener,Vie
         }
         catch (Exception e)
         {
-
+            e.printStackTrace();
         }
     }
     public int ToColor(String data){
@@ -459,7 +459,7 @@ public class LightType1 extends LinearLayout implements View.OnClickListener,Vie
             }
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 }

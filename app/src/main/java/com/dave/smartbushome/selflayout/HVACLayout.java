@@ -594,11 +594,8 @@ public class HVACLayout extends RelativeLayout implements View.OnClickListener{
             blnSuccess=acc.ACControl((byte)thishvac.subnetID, (byte)thishvac.deviceID, intType, intValue,MainActivity.mydupsocket);
 
         }catch(Exception e)
-        {}
-        finally
-        {
+        {e.printStackTrace();}
 
-        }
         return blnSuccess;
     }
 }

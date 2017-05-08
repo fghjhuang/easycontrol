@@ -378,7 +378,7 @@ public class OtherType3 extends LinearLayout implements View.OnClickListener,Vie
         }
         catch (Exception e)
         {
-
+            e.printStackTrace();
         }
     }
     /***************************************************************************************/
@@ -405,7 +405,7 @@ public class OtherType3 extends LinearLayout implements View.OnClickListener,Vie
             }
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 }

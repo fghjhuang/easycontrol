@@ -32,7 +32,7 @@ public class musiccontrol_2 {
 					byteSubnetID, byteDeviceID, false);
 
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 

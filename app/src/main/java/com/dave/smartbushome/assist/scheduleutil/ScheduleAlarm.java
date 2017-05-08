@@ -317,7 +317,7 @@ public class ScheduleAlarm {
                 }
 
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
     }

@@ -606,7 +606,7 @@ public class udp_socket  {
 			}
 
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 		return blnIsClose;
 	}

@@ -433,9 +433,7 @@ public class LightType2 extends LinearLayout implements View.OnClickListener,Vie
             }
 
         } catch (Exception e) {
-
-        } finally {
-
+            e.printStackTrace();
         }
     }
 }

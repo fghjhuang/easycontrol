@@ -1056,7 +1056,7 @@ boolean doing=false;
         }
         catch (Exception e)
         {
-
+            e.printStackTrace();
         }
     }
     private static IntentFilter makeUpdateIntentFilter() {

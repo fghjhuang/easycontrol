@@ -123,7 +123,7 @@ public class radiocontrol {
                     byteSubnetID, byteDeviceID, false);
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 }

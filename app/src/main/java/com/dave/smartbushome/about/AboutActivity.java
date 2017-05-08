@@ -66,7 +66,6 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
         switch(item.getItemId()){
             case android.R.id.home:
                 finish();

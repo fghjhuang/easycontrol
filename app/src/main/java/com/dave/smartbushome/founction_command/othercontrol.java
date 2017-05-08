@@ -79,8 +79,6 @@ public class othercontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
         return blnSuccess;
     }
@@ -123,8 +121,6 @@ public class othercontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
         return blnSuccess;
     }
@@ -157,8 +153,7 @@ public class othercontrol {
         } catch (Exception e) {
             // Toast.makeText(getApplicationContext(), e.getMessage(),
             // Toast.LENGTH_SHORT).show();
-        } finally {
-
+            e.printStackTrace();
         }
     }
 }

@@ -116,7 +116,7 @@ public class musiccontrol {
 			}
 
 		}catch (Exception e){
-
+			e.printStackTrace();
 		}
 		return add_random;
 	}
@@ -144,7 +144,7 @@ public class musiccontrol {
 					byteSubnetID, byteDeviceID, false);
 
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 
@@ -173,7 +173,7 @@ public class musiccontrol {
 					byteSubnetID, byteDeviceID, false);
 
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 	public void SwitchtoMusicSD(byte byteSubnetID, byte byteDeviceID,udp_socket mydupsocket){

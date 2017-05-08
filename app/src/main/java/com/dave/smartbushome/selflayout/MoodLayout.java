@@ -324,7 +324,7 @@ public class MoodLayout extends LinearLayout implements View.OnLongClickListener
         }
         catch (Exception e)
         {
-
+            e.printStackTrace();
         }
     }
     public int ToColor(String data){
