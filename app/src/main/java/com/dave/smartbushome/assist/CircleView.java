@@ -59,8 +59,9 @@ public class CircleView extends View {
         center = cen/ 2;
         centerx=measuredWidth/2;
         centery=measuredHeight/2;
-        innerRadius = (center - circleWidth / 2 - 10);// 圆环
-        innerCircleRadius = center / 3;
+        innerCircleRadius = (float) (center / 2);
+        innerRadius = center-2;//(center - circleWidth / 2 - 10);// 圆环
+
         this.setOnTouchListener(onTouchListener);
     }
 
@@ -149,19 +150,19 @@ public class CircleView extends View {
         paint.setStrokeWidth(100);
         switch (dir) {
             case UP:
-                canvas.drawArc(new RectF(center - innerRadius, center - innerRadius, center + innerRadius, center
+                canvas.drawArc(new RectF(centerx - innerRadius, centery - innerRadius, centerx + innerRadius, centery
                         + innerRadius), 225, 90, false, paint);
                 break;
             case DOWN:
-                canvas.drawArc(new RectF(center - innerRadius, center - innerRadius, center + innerRadius, center
+                canvas.drawArc(new RectF(centerx - innerRadius, centery - innerRadius, centerx + innerRadius, centery
                         + innerRadius), 45, 90, false, paint);
                 break;
             case LEFT:
-                canvas.drawArc(new RectF(center - innerRadius, center - innerRadius, center + innerRadius, center
+                canvas.drawArc(new RectF(centerx - innerRadius, centery - innerRadius, centerx + innerRadius, centery
                         + innerRadius), 135, 90, false, paint);
                 break;
             case RIGHT:
-                canvas.drawArc(new RectF(center - innerRadius, center - innerRadius, center + innerRadius, center
+                canvas.drawArc(new RectF(centerx - innerRadius, centery - innerRadius, centerx + innerRadius, centery
                         + innerRadius), -45, 90, false, paint);
                 break;
 
@@ -257,7 +258,7 @@ public class CircleView extends View {
                 paint.setStyle(Paint.Style.STROKE);
                 canvas.drawCircle(centerx, centery, innerRadius, paint); // 绘制圆圈
                 float r2=innerCircleRadius+((innerRadius-innerCircleRadius)/2);
-                paint.setStrokeWidth(r2-10);
+                paint.setStrokeWidth(2*(r2-innerCircleRadius));
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setColor(Color.BLUE);
 
@@ -273,7 +274,7 @@ public class CircleView extends View {
                 paint.setStyle(Paint.Style.STROKE);
                 canvas.drawCircle(centerx, centery, innerRadius, paint); // 绘制圆圈
                 float r3=innerCircleRadius+((innerRadius-innerCircleRadius)/2);
-                paint.setStrokeWidth(r3-10);
+                paint.setStrokeWidth(2*(r3-innerCircleRadius));
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setColor(Color.BLUE);
 
@@ -288,7 +289,7 @@ public class CircleView extends View {
                 paint.setStyle(Paint.Style.STROKE);
                 canvas.drawCircle(centerx, centery, innerRadius, paint); // 绘制圆圈
                 float r4=innerCircleRadius+((innerRadius-innerCircleRadius)/2);
-                paint.setStrokeWidth(r4-10);
+                paint.setStrokeWidth(2*(r4-innerCircleRadius));
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setColor(Color.BLUE);
 
@@ -303,7 +304,7 @@ public class CircleView extends View {
                 paint.setStyle(Paint.Style.STROKE);
                 canvas.drawCircle(centerx, centery, innerRadius, paint); // 绘制圆圈
                 float r5=innerCircleRadius+((innerRadius-innerCircleRadius)/2);
-                paint.setStrokeWidth(r5-10);
+                paint.setStrokeWidth(2*(r5-innerCircleRadius));
                 paint.setStyle(Paint.Style.STROKE);
                 paint.setColor(Color.BLUE);
 
@@ -416,7 +417,7 @@ public class CircleView extends View {
             }else{
                // listener.onPress("center","press");
             }
-        } else if (y < x && y + x < 2 * center) {
+        } else if (getangle(x,y)>45&&getangle(x,y)<135) {
             dir = Dir.UP;
            // System.out.println("----松开向上");
             if(listener!=null)
@@ -426,7 +427,7 @@ public class CircleView extends View {
             }else{
                 //listener.onPress("up","press");
             }
-        } else if (y < x && y + x > 2 * center) {
+        } else if ((getangle(x,y)>=0&&getangle(x,y)<45)||((getangle(x,y)>315&&getangle(x,y)<=360))) {
             dir = Dir.RIGHT;
             //System.out.println("----松开向右");
             if(listener!=null)
@@ -436,7 +437,7 @@ public class CircleView extends View {
             }else{
                // listener.onPress("right","press");
             }
-        } else if (y > x && y + x < 2 * center) {
+        } else if (getangle(x,y)>135&&getangle(x,y)<225) {
             dir = Dir.LEFT;
            // System.out.println("----松开向左");
             if(listener!=null)
@@ -447,7 +448,7 @@ public class CircleView extends View {
                // listener.onPress("left","press");
             }
 
-        } else if (y > x && y + x > 2 * center) {
+        } else if (getangle(x,y)>225&&getangle(x,y)<315) {
             dir = Dir.DOWN;
             //System.out.println("----松开向下");
             if(listener!=null)
@@ -460,7 +461,7 @@ public class CircleView extends View {
         }
     }
     public void touchup(float x,float y){
-        if (Math.sqrt(Math.pow(y - center, 2) + Math.pow(x - center, 2)) < innerCircleRadius) {// 判断在中心圆圈内
+       /* if (Math.sqrt(Math.pow(y - center, 2) + Math.pow(x - center, 2)) < innerCircleRadius) {// 判断在中心圆圈内
             dir = Dir.CENTER;
             //System.out.println("----松开中央");
             if(listener!=null)
@@ -485,13 +486,39 @@ public class CircleView extends View {
            // System.out.println("----松开向下");
             if(listener!=null)
             listener.onPress("down","press");
+        }*/
+        if (Math.sqrt(Math.pow(y - center, 2) + Math.pow(x - center, 2)) < innerCircleRadius) {// 判断在中心圆圈内
+            dir = Dir.CENTER;
+            //System.out.println("----松开中央");
+            if(listener!=null)
+                listener.onPress("center","press");
+        } else if (getangle(x,y)>45&&getangle(x,y)<135) {
+            dir = Dir.UP;
+            // System.out.println("----松开向上");
+            if(listener!=null)
+                listener.onPress("up","press");
+        } else if ((getangle(x,y)>=0&&getangle(x,y)<45)||((getangle(x,y)>315&&getangle(x,y)<=360))) {
+            dir = Dir.RIGHT;
+            // System.out.println("----松开向右");
+            if(listener!=null)
+                listener.onPress("right","press");
+        } else if ((getangle(x,y)>135&&getangle(x,y)<225)) {
+            dir = Dir.LEFT;
+            // System.out.println("----松开向左");
+            if(listener!=null)
+                listener.onPress("left","press");
+        } else if ((getangle(x,y)>225&&getangle(x,y)<315)) {
+            dir = Dir.DOWN;
+            // System.out.println("----松开向下");
+            if(listener!=null)
+                listener.onPress("down","press");
         }
         invalidate();
 
     }
 
     public void touchdown(float x,float y){
-        if (Math.sqrt(Math.pow(y - center, 2) + Math.pow(x - center, 2)) < innerCircleRadius) {// 判断在中心圆圈内
+        /*if (Math.sqrt(Math.pow(y - centery, 2) + Math.pow(x - centerx, 2)) < innerCircleRadius) {// 判断在中心圆圈内
             dir = Dir.CENTER;
             //System.out.println("----按下中央");
             press=1;
@@ -511,6 +538,27 @@ public class CircleView extends View {
             dir = Dir.DOWN;
            // System.out.println("----按下向下");
             press=5;
+        }*/
+        if (Math.sqrt(Math.pow(y - centery, 2) + Math.pow(x - centerx, 2)) < innerCircleRadius) {// 判断在中心圆圈内
+            dir = Dir.CENTER;
+            //System.out.println("----按下中央");
+            press=1;
+        } else if (getangle(x,y)>45&&getangle(x,y)<135) {
+            dir = Dir.UP;
+            // System.out.println("----按下向上");
+            press=2;
+        } else if ((getangle(x,y)>=0&&getangle(x,y)<45)||((getangle(x,y)>315&&getangle(x,y)<=360))) {
+            dir = Dir.RIGHT;
+            // System.out.println("----按下向右");
+            press=3;
+        } else if ((getangle(x,y)>135&&getangle(x,y)<225)) {
+            dir = Dir.LEFT;
+            // System.out.println("----按下向左");
+            press=4;
+        } else if ((getangle(x,y)>225&&getangle(x,y)<315)) {
+            dir = Dir.DOWN;
+            // System.out.println("----按下向下");
+            press=5;
         }
         invalidate();
     }
@@ -523,5 +571,16 @@ public class CircleView extends View {
     public enum Dir {
         UP, DOWN, LEFT, RIGHT, CENTER, UNDEFINE
     }
-
+    public double getangle(float x,float y){
+        int a = (int)x-centerx;
+        int b = (int)y-centery;
+        int c =(int) Math.sqrt(a*a+b*b);
+        // 计算弧度表示的角
+        double B = Math.acos((a*a + c*c - b*b)/(2.0*a*c));
+        B = Math.toDegrees(B);
+        if(y>centery){
+            B=360-B;
+        }
+        return B;
+    }
 }
