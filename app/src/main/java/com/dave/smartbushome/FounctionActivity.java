@@ -223,7 +223,6 @@ public class FounctionActivity extends AppCompatActivity implements ShakeEventMa
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // TODO Auto-generated method stub
         switch(item.getItemId()){
             case android.R.id.home:
                 broadcastUpdate(ACTION_BACKPRESS);

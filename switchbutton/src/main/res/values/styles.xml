@@ -1,6 +1,6 @@
 <resources>
 
-	<style name="SwitchButtonMD">
+	<style name="KswSwitchButtonMD">
 		<item name="kswThumbDrawable">@drawable/ksw_md_thumb</item>
 		<item name="kswBackColor">@color/ksw_md_back_color</item>
 		<item name="kswBackMeasureRatio">1.45</item>

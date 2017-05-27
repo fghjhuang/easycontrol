@@ -221,7 +221,7 @@ public class Net_settingFragment extends Fragment implements View.OnClickListene
                 }
                 break;
             case R.id.ms_ns_savewifiname:
-                WifiManager wifiManager = (WifiManager) getActivity().getSystemService(getActivity().WIFI_SERVICE);
+                WifiManager wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(getActivity().WIFI_SERVICE);
                 final WifiInfo wifiInfo = wifiManager.getConnectionInfo();
                 if(wifiInfo.getBSSID()!=null){
                     deletealter = new AlertView("Save WifiName", "Your Current Wifi is "+wifiInfo.getSSID()+" right?", "CANCEL",

@@ -153,30 +153,30 @@ public class SwitchButton extends CompoundButton {
 		float textMarginH = density * DEFAULT_TEXT_MARGIN_DP;
 		boolean autoAdjustTextPosition = true;
 
-		TypedArray ta = attrs == null ? null : getContext().obtainStyledAttributes(attrs, R.styleable.SwitchButton);
+		TypedArray ta = attrs == null ? null : getContext().obtainStyledAttributes(attrs, R.styleable.KswSwitchButton);
 		if (ta != null) {
-			thumbDrawable = ta.getDrawable(R.styleable.SwitchButton_kswThumbDrawable);
-			thumbColor = ta.getColorStateList(R.styleable.SwitchButton_kswThumbColor);
-			margin = ta.getDimension(R.styleable.SwitchButton_kswThumbMargin, margin);
-			marginLeft = ta.getDimension(R.styleable.SwitchButton_kswThumbMarginLeft, margin);
-			marginRight = ta.getDimension(R.styleable.SwitchButton_kswThumbMarginRight, margin);
-			marginTop = ta.getDimension(R.styleable.SwitchButton_kswThumbMarginTop, margin);
-			marginBottom = ta.getDimension(R.styleable.SwitchButton_kswThumbMarginBottom, margin);
-			thumbWidth = ta.getDimension(R.styleable.SwitchButton_kswThumbWidth, thumbWidth);
-			thumbHeight = ta.getDimension(R.styleable.SwitchButton_kswThumbHeight, thumbHeight);
-			thumbRadius = ta.getDimension(R.styleable.SwitchButton_kswThumbRadius, Math.min(thumbWidth, thumbHeight) / 2.f);
-			backRadius = ta.getDimension(R.styleable.SwitchButton_kswBackRadius, thumbRadius + density * 2f);
-			backDrawable = ta.getDrawable(R.styleable.SwitchButton_kswBackDrawable);
-			backColor = ta.getColorStateList(R.styleable.SwitchButton_kswBackColor);
-			backMeasureRatio = ta.getFloat(R.styleable.SwitchButton_kswBackMeasureRatio, backMeasureRatio);
-			animationDuration = ta.getInteger(R.styleable.SwitchButton_kswAnimationDuration, animationDuration);
-			fadeBack = ta.getBoolean(R.styleable.SwitchButton_kswFadeBack, true);
-			tintColor = ta.getColor(R.styleable.SwitchButton_kswTintColor, tintColor);
-			textOn = ta.getString(R.styleable.SwitchButton_kswTextOn);
-			textOff = ta.getString(R.styleable.SwitchButton_kswTextOff);
+			thumbDrawable = ta.getDrawable(R.styleable.KswSwitchButton_kswThumbDrawable);
+			thumbColor = ta.getColorStateList(R.styleable.KswSwitchButton_kswThumbColor);
+			margin = ta.getDimension(R.styleable.KswSwitchButton_kswThumbMargin, margin);
+			marginLeft = ta.getDimension(R.styleable.KswSwitchButton_kswThumbMarginLeft, margin);
+			marginRight = ta.getDimension(R.styleable.KswSwitchButton_kswThumbMarginRight, margin);
+			marginTop = ta.getDimension(R.styleable.KswSwitchButton_kswThumbMarginTop, margin);
+			marginBottom = ta.getDimension(R.styleable.KswSwitchButton_kswThumbMarginBottom, margin);
+			thumbWidth = ta.getDimension(R.styleable.KswSwitchButton_kswThumbWidth, thumbWidth);
+			thumbHeight = ta.getDimension(R.styleable.KswSwitchButton_kswThumbHeight, thumbHeight);
+			thumbRadius = ta.getDimension(R.styleable.KswSwitchButton_kswThumbRadius, Math.min(thumbWidth, thumbHeight) / 2.f);
+			backRadius = ta.getDimension(R.styleable.KswSwitchButton_kswBackRadius, thumbRadius + density * 2f);
+			backDrawable = ta.getDrawable(R.styleable.KswSwitchButton_kswBackDrawable);
+			backColor = ta.getColorStateList(R.styleable.KswSwitchButton_kswBackColor);
+			backMeasureRatio = ta.getFloat(R.styleable.KswSwitchButton_kswBackMeasureRatio, backMeasureRatio);
+			animationDuration = ta.getInteger(R.styleable.KswSwitchButton_kswAnimationDuration, animationDuration);
+			fadeBack = ta.getBoolean(R.styleable.KswSwitchButton_kswFadeBack, true);
+			tintColor = ta.getColor(R.styleable.KswSwitchButton_kswTintColor, tintColor);
+			textOn = ta.getString(R.styleable.KswSwitchButton_kswTextOn);
+			textOff = ta.getString(R.styleable.KswSwitchButton_kswTextOff);
 			textMarginH = Math.max(textMarginH, backRadius / 2);
-			textMarginH = ta.getDimension(R.styleable.SwitchButton_kswTextMarginH, textMarginH);
-			autoAdjustTextPosition = ta.getBoolean(R.styleable.SwitchButton_kswAutoAdjustTextPosition, autoAdjustTextPosition);
+			textMarginH = ta.getDimension(R.styleable.KswSwitchButton_kswTextMarginH, textMarginH);
+			autoAdjustTextPosition = ta.getBoolean(R.styleable.KswSwitchButton_kswAutoAdjustTextPosition, autoAdjustTextPosition);
 			ta.recycle();
 		}
 
