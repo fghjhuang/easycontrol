@@ -539,7 +539,7 @@ private boolean isWorked(String className) {
             if(isIgnoringBatteryOptimizations(this)){
 
             }else{
-                isIgnoreBatteryOption(this);
+               // isIgnoreBatteryOption(this);
             }
             insertDummyContactWrapper();
         } else {
