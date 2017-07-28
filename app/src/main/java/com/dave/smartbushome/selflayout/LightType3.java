@@ -156,7 +156,10 @@ public class LightType3 extends LinearLayout implements View.OnClickListener,Vie
         FounctionActivity.fcontext.sendBroadcast(intent);
     }
     public boolean onLongClick(View v){
-        showPopupMenu(tv_remark);
+        if(!MainActivity.islockchangeid){
+            showPopupMenu(tv_remark);
+        }
+
         return true;
     }
     EditText sub,dev,name;
@@ -172,6 +175,7 @@ public class LightType3 extends LinearLayout implements View.OnClickListener,Vie
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.action_open:
+
                         settingalter = new AlertView("Settings", null, "CANCEL",  new String[]{"SAVE"}, null, rootcontext, AlertView.Style.Alert,
                                 settingclick);
                         View selfview= inflater.inflate(R.layout.setting_lighttypeinfo, null);

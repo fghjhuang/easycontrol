@@ -129,138 +129,144 @@ public class Light extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.light_add:
-                if(intodeletemode){
-                    add.setTitle("ADD");
-                    delete.setTitle("DELETE");
-                    intodeletemode=false;
-                    for(int i=0;i<type1list.size();i++){
-                        type1list.get(i).setdeletevisable(false);
-                    }
-
-                    for(int i=0;i<type2list.size();i++){
-                        type2list.get(i).setdeletevisable(false);
-                    }
-
-                    for(int i=0;i<type3list.size();i++){
-                        type3list.get(i).setdeletevisable(false);
-                    }
-
-                    for(int i=0;i<type4list.size();i++){
-                        type4list.get(i).setdeletevisable(false);
-                    }
-                }else{
-                    final AlertView mAlertViewExt = new AlertView(null, null, "CANCEL", null, null, getActivity(), AlertView.Style.Alert,
-                            null);
-                    //ViewGroup extView = (ViewGroup) LayoutInflater.from(getActivity()).inflate(R.layout.listdialog,null);
-                    final ListView typelist=new ListView(getActivity());
-                    typelist.setAdapter(new LightTypeAdapter(getActivity()));
-                    typelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            int light_id;
-                            if (roomlight.size() == 0) {
-                                light_id = 1;
-                            } else {
-                                light_id = roomlight.get(roomlight.size() - 1).light_id + 1;
-                            }
-                            ArrayList<Savelight> tips = new ArrayList<Savelight>();
-                            switch (position) {
-                                case 0:
-                                    Savelight type1 = new Savelight(FounctionActivity.roomidfc,
-                                            0, 0, light_id, 0, 100, 1, "light" + light_id, "light_icon1");
-                                    tips.add(type1);
-                                    MainActivity.mgr.addlight(tips);
-                                    break;
-                                case 1:
-                                    Savelight type2 = new Savelight(FounctionActivity.roomidfc,
-                                            0, 0, light_id, 0, 100, 2, "light" + light_id, "light_icon1");
-                                    tips.add(type2);
-                                    MainActivity.mgr.addlight(tips);
-                                    break;
-                                case 2:
-                                    Savelight type3 = new Savelight(FounctionActivity.roomidfc,
-                                            0, 0, light_id, 0, 100, 3, "light" + light_id, "light_icon1");
-                                    tips.add(type3);
-                                    MainActivity.mgr.addlight(tips);
-                                    break;
-                                case 3:
-                                    Savelight type4 = new Savelight(FounctionActivity.roomidfc,
-                                            0, 0, light_id, 0, 100, 4, "light" + light_id, "light_icon1");
-                                    tips.add(type4);
-                                    MainActivity.mgr.addlight(tips);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            lighthandle.postDelayed(getlightlist, 30);
-                            mAlertViewExt.dismiss();
+                if(!MainActivity.islockchangeid){
+                    if(intodeletemode){
+                        add.setTitle("ADD");
+                        delete.setTitle("DELETE");
+                        intodeletemode=false;
+                        for(int i=0;i<type1list.size();i++){
+                            type1list.get(i).setdeletevisable(false);
                         }
-                    });
-                    mAlertViewExt.addExtView(typelist);
-                    mAlertViewExt.show();
+
+                        for(int i=0;i<type2list.size();i++){
+                            type2list.get(i).setdeletevisable(false);
+                        }
+
+                        for(int i=0;i<type3list.size();i++){
+                            type3list.get(i).setdeletevisable(false);
+                        }
+
+                        for(int i=0;i<type4list.size();i++){
+                            type4list.get(i).setdeletevisable(false);
+                        }
+                    }else{
+                        final AlertView mAlertViewExt = new AlertView(null, null, "CANCEL", null, null, getActivity(), AlertView.Style.Alert,
+                                null);
+                        //ViewGroup extView = (ViewGroup) LayoutInflater.from(getActivity()).inflate(R.layout.listdialog,null);
+                        final ListView typelist=new ListView(getActivity());
+                        typelist.setAdapter(new LightTypeAdapter(getActivity()));
+                        typelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                int light_id;
+                                if (roomlight.size() == 0) {
+                                    light_id = 1;
+                                } else {
+                                    light_id = roomlight.get(roomlight.size() - 1).light_id + 1;
+                                }
+                                ArrayList<Savelight> tips = new ArrayList<Savelight>();
+                                switch (position) {
+                                    case 0:
+                                        Savelight type1 = new Savelight(FounctionActivity.roomidfc,
+                                                0, 0, light_id, 0, 100, 1, "light" + light_id, "light_icon1");
+                                        tips.add(type1);
+                                        MainActivity.mgr.addlight(tips);
+                                        break;
+                                    case 1:
+                                        Savelight type2 = new Savelight(FounctionActivity.roomidfc,
+                                                0, 0, light_id, 0, 100, 2, "light" + light_id, "light_icon1");
+                                        tips.add(type2);
+                                        MainActivity.mgr.addlight(tips);
+                                        break;
+                                    case 2:
+                                        Savelight type3 = new Savelight(FounctionActivity.roomidfc,
+                                                0, 0, light_id, 0, 100, 3, "light" + light_id, "light_icon1");
+                                        tips.add(type3);
+                                        MainActivity.mgr.addlight(tips);
+                                        break;
+                                    case 3:
+                                        Savelight type4 = new Savelight(FounctionActivity.roomidfc,
+                                                0, 0, light_id, 0, 100, 4, "light" + light_id, "light_icon1");
+                                        tips.add(type4);
+                                        MainActivity.mgr.addlight(tips);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                lighthandle.postDelayed(getlightlist, 30);
+                                mAlertViewExt.dismiss();
+                            }
+                        });
+                        mAlertViewExt.addExtView(typelist);
+                        mAlertViewExt.show();
+                    }
                 }
+
                 break;
             case R.id.light_remove:
-                intodeletemode=!intodeletemode;
-                if(intodeletemode){
-                    add.setTitle("CANCLE DELETE");
-                    delete.setTitle("DELETE");
-                    if(type1list.size()>0){type1list.clear();}
-                    if(type2list.size()>0){type2list.clear();}
-                    if(type3list.size()>0){type3list.clear();}
-                    if(type4list.size()>0){type4list.clear();}
-                    for(int i=0;i<roomlight.size();i++){
-                        switch(roomlight.get(i).lightType){
-                            case 1:
-                                LightType1 x=(LightType1)lightcontrollayout.findViewById(roomlight.get(i).light_id);
-                                type1list.add(x);
-                                x.setdeletevisable(true);
-                                break;
-                            case 2:
-                                LightType2 x2=(LightType2)lightcontrollayout.findViewById(roomlight.get(i).light_id);
-                                type2list.add(x2);
-                                x2.setdeletevisable(true);
-                                break;
-                            case 3:
-                                LightType3 x3=(LightType3)lightcontrollayout.findViewById(roomlight.get(i).light_id);
-                                type3list.add(x3);
-                                x3.setdeletevisable(true);
-                                break;
-                            case 4:
-                                LightType4 x4=(LightType4)lightcontrollayout.findViewById(roomlight.get(i).light_id);
-                                type4list.add(x4);
-                                x4.setdeletevisable(true);
-                                break;
-                            default:break;
+                if(!MainActivity.islockchangeid){
+                    intodeletemode=!intodeletemode;
+                    if(intodeletemode){
+                        add.setTitle("CANCLE DELETE");
+                        delete.setTitle("DELETE");
+                        if(type1list.size()>0){type1list.clear();}
+                        if(type2list.size()>0){type2list.clear();}
+                        if(type3list.size()>0){type3list.clear();}
+                        if(type4list.size()>0){type4list.clear();}
+                        for(int i=0;i<roomlight.size();i++){
+                            switch(roomlight.get(i).lightType){
+                                case 1:
+                                    LightType1 x=(LightType1)lightcontrollayout.findViewById(roomlight.get(i).light_id);
+                                    type1list.add(x);
+                                    x.setdeletevisable(true);
+                                    break;
+                                case 2:
+                                    LightType2 x2=(LightType2)lightcontrollayout.findViewById(roomlight.get(i).light_id);
+                                    type2list.add(x2);
+                                    x2.setdeletevisable(true);
+                                    break;
+                                case 3:
+                                    LightType3 x3=(LightType3)lightcontrollayout.findViewById(roomlight.get(i).light_id);
+                                    type3list.add(x3);
+                                    x3.setdeletevisable(true);
+                                    break;
+                                case 4:
+                                    LightType4 x4=(LightType4)lightcontrollayout.findViewById(roomlight.get(i).light_id);
+                                    type4list.add(x4);
+                                    x4.setdeletevisable(true);
+                                    break;
+                                default:break;
+                            }
                         }
-                    }
-                }else{
-                    for(int i=0;i<type1list.size();i++){
-                        if(type1list.get(i).getIfneedtoDelete()){
-                            MainActivity.mgr.deletelight("light",type1list.get(i).getType1lightid(),FounctionActivity.roomidfc);
+                    }else{
+                        for(int i=0;i<type1list.size();i++){
+                            if(type1list.get(i).getIfneedtoDelete()){
+                                MainActivity.mgr.deletelight("light",type1list.get(i).getType1lightid(),FounctionActivity.roomidfc);
+                            }
                         }
+
+                        for(int i=0;i<type2list.size();i++){
+                            if(type2list.get(i).getIfneedtoDelete()){
+                                MainActivity.mgr.deletelight("light",type2list.get(i).getType2lightid(),FounctionActivity.roomidfc);
+                            }
+                        }
+
+                        for(int i=0;i<type3list.size();i++){
+                            if(type3list.get(i).getIfneedtoDelete()){
+                                MainActivity.mgr.deletelight("light",type3list.get(i).getType3lightid(),FounctionActivity.roomidfc);
+                            }
+                        }
+                        for(int i=0;i<type4list.size();i++){
+                            if(type4list.get(i).getIfneedtoDelete()){
+                                MainActivity.mgr.deletelight("light",type4list.get(i).getType4lightid(),FounctionActivity.roomidfc);
+                            }
+                        }
+                        lighthandle.postDelayed(getlightlist,30);
+                        add.setTitle("ADD");
+                        delete.setTitle("DELETE");
+                        intodeletemode=false;
                     }
 
-                    for(int i=0;i<type2list.size();i++){
-                        if(type2list.get(i).getIfneedtoDelete()){
-                            MainActivity.mgr.deletelight("light",type2list.get(i).getType2lightid(),FounctionActivity.roomidfc);
-                        }
-                    }
-
-                    for(int i=0;i<type3list.size();i++){
-                        if(type3list.get(i).getIfneedtoDelete()){
-                            MainActivity.mgr.deletelight("light",type3list.get(i).getType3lightid(),FounctionActivity.roomidfc);
-                        }
-                    }
-                    for(int i=0;i<type4list.size();i++){
-                        if(type4list.get(i).getIfneedtoDelete()){
-                            MainActivity.mgr.deletelight("light",type4list.get(i).getType4lightid(),FounctionActivity.roomidfc);
-                        }
-                    }
-                    lighthandle.postDelayed(getlightlist,30);
-                    add.setTitle("ADD");
-                    delete.setTitle("DELETE");
-                    intodeletemode=false;
                 }
 
                 break;
@@ -468,8 +474,10 @@ public class Light extends Fragment {
              }else if(FounctionActivity.ACTION_DELETELIGHT.equals(action)){
                  lighthandle.postDelayed(getlightlist,30);
              }else if(FounctionActivity.ACTION_SHAKE.equals(action)){
-                 int shaketype=(intent.getIntExtra("shake_type",0));
-                 shakeperform(shaketype);
+                 if(!MainActivity.islockshake){
+                     int shaketype=(intent.getIntExtra("shake_type",0));
+                     shakeperform(shaketype);
+                 }
              }
         }
     };

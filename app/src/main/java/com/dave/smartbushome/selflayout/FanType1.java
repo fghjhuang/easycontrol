@@ -126,7 +126,10 @@ public class FanType1 extends LinearLayout implements View.OnClickListener,View.
         }
     };
     public boolean onLongClick(View v){
-        showPopupMenu(fanshowpopup);
+        if(!MainActivity.islockchangeid){
+            showPopupMenu(fanshowpopup);
+        }
+
         return true;
     }
 
@@ -145,6 +148,7 @@ public class FanType1 extends LinearLayout implements View.OnClickListener,View.
             public boolean onMenuItemClick(MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.action_open:
+
                         settingalter = new AlertView("Settings", null, "CANCEL",  new String[]{"SAVE"}, null, rootcontext, AlertView.Style.Alert,
                                 itemclick);
                         View  selfview= inflater.inflate(R.layout.setting_faninfo, null);

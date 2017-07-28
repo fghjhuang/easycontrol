@@ -73,7 +73,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="83dp"
         android:gravity="center"
-        android:text="Version Number： 1.6.4"
+        android:text="Version Number： 1.7.0"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -86,7 +86,7 @@
         android:layout_alignStart="@+id/textView34"
         android:layout_below="@+id/textView34"
         android:gravity="center"
-        android:text="ReleaseDate：31 May.2017"
+        android:text="ReleaseDate：28 July.2017"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView

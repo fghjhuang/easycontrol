@@ -161,7 +161,10 @@ public class LightType2 extends LinearLayout implements View.OnClickListener,Vie
         }
     };
     public boolean onLongClick(View v){
-        showPopupMenu(tv_remark);
+        if(!MainActivity.islockchangeid){
+            showPopupMenu(tv_remark);
+        }
+
         return true;
     }
     EditText sub,dev,cha,name;
@@ -177,6 +180,7 @@ public class LightType2 extends LinearLayout implements View.OnClickListener,Vie
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_open:
+
                         settingalter = new AlertView("Settings", null, "CANCEL",  new String[]{"SAVE"}, null, rootcontext, AlertView.Style.Alert,
                                 settingclick);
                         ViewGroup setextView = (ViewGroup) LayoutInflater.from(rootcontext).inflate(R.layout.setting_lightinfo, null);

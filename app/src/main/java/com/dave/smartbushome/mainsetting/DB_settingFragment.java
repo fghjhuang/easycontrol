@@ -2,21 +2,32 @@ package com.dave.smartbushome.mainsetting;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.method.DigitsKeyListener;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
+import com.dave.smartbushome.MainActivity;
 import com.dave.smartbushome.R;
+import com.kyleduo.switchbutton.SwitchButton;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,14 +39,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DB_settingFragment extends Fragment implements View.OnClickListener{
-
+    SwitchButton lockshake,lockchangeid;
+    TextView lockchangeidDetail;
     Button bt_export,bt_import,bt_share,bt_delete;
     ProgressDialog searching;
+    String passqord="123456";
     View view;
     public static DB_settingFragment newInstance() {
         DB_settingFragment pageFragment = new DB_settingFragment();
@@ -48,8 +63,8 @@ public class DB_settingFragment extends Fragment implements View.OnClickListener
     public DB_settingFragment() {
         // Required empty public constructor
     }
-
-
+    EditText pwd,factoryreset;
+    boolean changefalsepwdwrong=false,init=true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +74,53 @@ public class DB_settingFragment extends Fragment implements View.OnClickListener
         bt_import=(Button)view.findViewById(R.id.ms_import);
         bt_delete=(Button)view.findViewById(R.id.ms_delete);
         bt_share=(Button)view.findViewById(R.id.ms_share);
+        lockchangeidDetail=(TextView)view.findViewById(R.id.textView59);
+        lockchangeidDetail.setOnClickListener(this);
+        lockchangeidDetail.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertView pairalter = new AlertView("Enter FactoryCode", null, "CANCEL",  new String[]{"YES"}, null, getActivity(), AlertView.Style.Alert,
+                        factoryclick);
+                factoryreset=new EditText(getActivity());
+                pairalter.addExtView(factoryreset);
+                pairalter.show();
+                return true;
+            }
+        });
+        lockchangeid=(SwitchButton)view.findViewById(R.id.sw_lockchangeid);
+        lockchangeid.setChecked(MainActivity.islockchangeid);
+        lockchangeid.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!changefalsepwdwrong){
+                    if(isChecked){
+                        savevalueInfo(getActivity(),"lockchangeid",lockchangeid.isChecked());
+                        MainActivity.islockchangeid=true;
+                    }else{
+                        AlertView pairalter = new AlertView("Enter Password", null, "CANCEL",  new String[]{"YES"}, null, getActivity(), AlertView.Style.Alert,
+                                itemclick);
+                        pwd=new EditText(getActivity());
+                        pwd.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        pwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)}); //最大输入长度
+                        pwd.setTransformationMethod(PasswordTransformationMethod.getInstance()); //设置为密码输
+                        pwd.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
+                        pairalter.addExtView(pwd);
+                        pairalter.show();
+                    }
+                }else{
+                    changefalsepwdwrong=false;
+                }
+            }
+        });
+        lockshake=(SwitchButton)view.findViewById(R.id.sw_lockshake);
+        lockshake.setChecked(MainActivity.islockshake);
+        lockshake.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                savevalueInfo(getActivity(),"lockshake",lockshake.isChecked());
+                MainActivity.islockshake=lockshake.isChecked();
+            }
+        });
         bt_export.setOnClickListener(this);
         bt_import.setOnClickListener(this);
         bt_delete.setOnClickListener(this);
@@ -68,9 +130,44 @@ public class DB_settingFragment extends Fragment implements View.OnClickListener
         searching.setCanceledOnTouchOutside(false);
         searching.setMessage("Searching Database...");
         searching.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        SharedPreferences sharedPre4 = getActivity().getSharedPreferences("lockinfo", MODE_PRIVATE);
+        passqord= sharedPre4.getString("lockidPwd","123456");
         return view;
     }
+    public com.bigkoo.alertview.OnItemClickListener itemclick=new com.bigkoo.alertview.OnItemClickListener() {
+        public void onItemClick(Object o, int position) {
+            if(position==-1){
+                changefalsepwdwrong=true;
+                lockchangeid.setChecked(true);
+            }else if(position==0){
+                if(pwd.getText().toString().equals(passqord)){
+                    savevalueInfo(getActivity(),"lockchangeid",false);
+                    MainActivity.islockchangeid=false;
+                }else{
+                    changefalsepwdwrong=true;
+                    lockchangeid.setChecked(true);
+                    Toast.makeText(getActivity(), "wrong password", Toast.LENGTH_SHORT).show();
+                }
+            }
 
+        }
+    };
+    public com.bigkoo.alertview.OnItemClickListener factoryclick=new com.bigkoo.alertview.OnItemClickListener() {
+        public void onItemClick(Object o, int position) {
+            if(position==-1){
+
+            }else if(position==0){
+                if(factoryreset.getText().toString().equals("smarthomeG4")){
+                    saveidInfo(getActivity(),"123456");
+                    passqord="123456";
+                    Toast.makeText(getActivity(), "factory reset succeed", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getActivity(), "wrong factory code", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        }
+    };
     Handler closehandler=new Handler();
     Runnable run=new Runnable() {
         @Override
@@ -78,8 +175,9 @@ public class DB_settingFragment extends Fragment implements View.OnClickListener
             importalter.dismiss();
         }
     };
-    AlertView importalter,importconfirmalter,importdeletealter,deletealter;
+    AlertView importalter,importconfirmalter,importdeletealter,deletealter,idpassword;
     String importpath="",deletepath="";
+    EditText oldpwd,newpwd1,newpwd2;
     public void onClick(View v){
         switch (v.getId()){
             case R.id.ms_export:
@@ -116,10 +214,42 @@ public class DB_settingFragment extends Fragment implements View.OnClickListener
             case R.id.ms_share:
                 Toast.makeText(getActivity(), "still developing,please wait", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.textView59:
+                idpassword = new AlertView("SetID password", null, "CANCEL",  new String[]{"YES"}, null, getActivity(), AlertView.Style.Alert,
+                        lockclick);
+                View selfviewx= getActivity().getLayoutInflater().inflate(R.layout.setting_lockid, null);
+                oldpwd=(EditText)selfviewx.findViewById(R.id.ed_oldidpassword) ;
+                newpwd1=(EditText)selfviewx.findViewById(R.id.ed_newidpassword1) ;
+                newpwd2=(EditText)selfviewx.findViewById(R.id.ed_newpassword2) ;
+                idpassword.addExtView(selfviewx);
+                idpassword.show();
+                break;
         }
     }
+    private com.bigkoo.alertview.OnItemClickListener lockclick=new com.bigkoo.alertview.OnItemClickListener(){
+        public void onItemClick(Object o,int position) {
+            if(position==-1){
 
-    public com.bigkoo.alertview.OnItemClickListener exitclick=new com.bigkoo.alertview.OnItemClickListener(){
+            }else if(position==0){
+                String oldstr=oldpwd.getText().toString();
+                String new1str=newpwd1.getText().toString();
+                String new2str=newpwd2.getText().toString();
+                if(oldstr.equals(passqord)){
+                    if(new1str.equals(new2str)&&new1str.length()==6){
+                        saveidInfo(getActivity(),new1str);
+                        passqord=new1str;
+                        Toast.makeText(getActivity(), "succeed", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getActivity(), "please make sure 6 number and the newpassdword is the same", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(getActivity(), "old password wrong", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }
+    };
+    private com.bigkoo.alertview.OnItemClickListener exitclick=new com.bigkoo.alertview.OnItemClickListener(){
         public void onItemClick(Object o,int position) {
             if(position==-1){
 
@@ -129,7 +259,7 @@ public class DB_settingFragment extends Fragment implements View.OnClickListener
         }
     };
 
-    public com.bigkoo.alertview.OnItemClickListener importclick=new com.bigkoo.alertview.OnItemClickListener(){
+    private com.bigkoo.alertview.OnItemClickListener importclick=new com.bigkoo.alertview.OnItemClickListener(){
         public void onItemClick(Object o,int position) {
             if(position==-1){
 
@@ -157,7 +287,26 @@ public class DB_settingFragment extends Fragment implements View.OnClickListener
             }
         }
     };
-
+    private void savevalueInfo(Context context, String savename, boolean value){
+        //获取SharedPreferences对象
+        SharedPreferences sharedPre=context.getSharedPreferences("lockinfo", MODE_PRIVATE);
+        //获取Editor对象
+        SharedPreferences.Editor editor=sharedPre.edit();
+        //设置参数
+        editor.putBoolean(savename, value);
+        //提交
+        editor.commit();
+    }
+    private void saveidInfo(Context context, String value){
+        //获取SharedPreferences对象
+        SharedPreferences sharedPre=context.getSharedPreferences("lockinfo", MODE_PRIVATE);
+        //获取Editor对象
+        SharedPreferences.Editor editor=sharedPre.edit();
+        //设置参数
+        editor.putString("lockidPwd", value);
+        //提交
+        editor.commit();
+    }
     public void copyFile(String oldPath, String newPath) {
         try {
             int bytesum = 0;

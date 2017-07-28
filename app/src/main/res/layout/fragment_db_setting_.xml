@@ -7,6 +7,35 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
+        android:id="@+id/textView132"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:text="Lock ShakeFunction:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#5297ff" />
+
+    <TextView
+        android:id="@+id/textView59"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingLeft="5dp"
+        android:text="Lock ChangeIDs:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#5297ff"
+        android:layout_alignTop="@+id/sw_lockchangeid"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textView132"
+        android:layout_alignEnd="@+id/textView132" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -108,4 +137,41 @@
         android:layout_height="20px"
         android:layout_centerInParent="true"
         android:id="@+id/space17" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ms_delete"
+        android:layout_marginTop="10dp"
+        android:background="@color/bgColor_divier" />
+
+    <view
+        class="com.kyleduo.switchbutton.SwitchButton"
+        layout_above="@+id/textView59"
+        layout_toEndOf="@+id/textView132"
+        layout_toRightOf="@+id/textView132"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView132"
+        android:layout_alignRight="@+id/textView3"
+        android:layout_alignEnd="@+id/textView3"
+        android:layout_marginRight="23dp"
+        android:layout_marginEnd="23dp"
+        android:id="@+id/sw_lockshake" />
+
+    <view
+        android:id="@+id/sw_lockchangeid"
+        class="com.kyleduo.switchbutton.SwitchButton"
+        layout_alignLeft="@+id/view2"
+        layout_alignStart="@+id/view2"
+        layout_below="@+id/textView59"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sw_lockshake"
+        android:layout_alignStart="@+id/sw_lockshake"
+        android:layout_below="@+id/sw_lockshake"
+        android:layout_marginTop="10dp" />
 </RelativeLayout>

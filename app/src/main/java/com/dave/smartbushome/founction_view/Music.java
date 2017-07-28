@@ -211,39 +211,45 @@ public class Music extends Fragment implements View.OnClickListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.music_setting:
-                settingalter = new AlertView("Settings", null, "CANCEL",  new String[]{"SAVE"}, null, getActivity(), AlertView.Style.Alert,
-                        itemclick);
-                View selfview = getActivity().getLayoutInflater().inflate(R.layout.setting_musicinfo, null);
-                sub = (EditText) selfview.findViewById(R.id.music_subedit);
-                dev = (EditText) selfview.findViewById(R.id.music_devedit);
-                sub.setText(String.valueOf(thismusic.subnetID));
-                dev.setText(String.valueOf(thismusic.deviceID));
-                settingalter.addExtView(selfview);
-                settingalter.show();
+                if(!MainActivity.islockchangeid){
+                    settingalter = new AlertView("Settings", null, "CANCEL",  new String[]{"SAVE"}, null, getActivity(), AlertView.Style.Alert,
+                            itemclick);
+                    View selfview = getActivity().getLayoutInflater().inflate(R.layout.setting_musicinfo, null);
+                    sub = (EditText) selfview.findViewById(R.id.music_subedit);
+                    dev = (EditText) selfview.findViewById(R.id.music_devedit);
+                    sub.setText(String.valueOf(thismusic.subnetID));
+                    dev.setText(String.valueOf(thismusic.deviceID));
+                    settingalter.addExtView(selfview);
+                    settingalter.show();
+                }
+
                 break;
             case R.id.music_pair:
-                pairalter = new AlertView("Select Device", null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
-                        itemclick);
-                View selfviewx= getActivity().getLayoutInflater().inflate(R.layout.auto_pair_dialog, null);
-                ListView test=(ListView)selfviewx.findViewById(R.id.listView4);
-                DeviceListAdapter mLeDeviceListAdapter= new DeviceListAdapter(getActivity(),MainActivity.netdeviceList);
-                test.setAdapter(mLeDeviceListAdapter);
-                test.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Savemusic x = new Savemusic();
-                        x.room_id = FounctionActivity.roomidfc;
-                        x.music_id = 1;
-                        x.subnetID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("subnetID"));
-                        x.deviceID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("deviceID"));
-                        MainActivity.mgr.updatemusic(x);
-                        getdata.postDelayed(getmusicidrun, 20);
-                        Toast.makeText(getActivity(), "apir " + MainActivity.netdeviceList.get(position).get("devicename") + " succeed", Toast.LENGTH_SHORT).show();
-                        pairalter.dismiss();
-                    }
-                });
-                pairalter.addExtView(selfviewx);
-                pairalter.show();
+                if(!MainActivity.islockchangeid){
+                    pairalter = new AlertView("Select Device", null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
+                            itemclick);
+                    View selfviewx= getActivity().getLayoutInflater().inflate(R.layout.auto_pair_dialog, null);
+                    ListView test=(ListView)selfviewx.findViewById(R.id.listView4);
+                    DeviceListAdapter mLeDeviceListAdapter= new DeviceListAdapter(getActivity(),MainActivity.netdeviceList);
+                    test.setAdapter(mLeDeviceListAdapter);
+                    test.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Savemusic x = new Savemusic();
+                            x.room_id = FounctionActivity.roomidfc;
+                            x.music_id = 1;
+                            x.subnetID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("subnetID"));
+                            x.deviceID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("deviceID"));
+                            MainActivity.mgr.updatemusic(x);
+                            getdata.postDelayed(getmusicidrun, 20);
+                            Toast.makeText(getActivity(), "apir " + MainActivity.netdeviceList.get(position).get("devicename") + " succeed", Toast.LENGTH_SHORT).show();
+                            pairalter.dismiss();
+                        }
+                    });
+                    pairalter.addExtView(selfviewx);
+                    pairalter.show();
+                }
+
 
                 break;
 
@@ -368,8 +374,11 @@ public class Music extends Fragment implements View.OnClickListener {
             }else if(FounctionActivity.ACTION_BACKPRESS.equals(action)){
                 onbackpress();
             }else if(FounctionActivity.ACTION_SHAKE.equals(action)){
-                int shaketype=(intent.getIntExtra("shake_type",0));
-                shakeperform(shaketype);
+                if(!MainActivity.islockshake){
+                    int shaketype=(intent.getIntExtra("shake_type",0));
+                    shakeperform(shaketype);
+                }
+
             }
         }
     };

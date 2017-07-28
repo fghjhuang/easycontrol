@@ -99,56 +99,62 @@ public class Curtain extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_curtain:
-                if(intodeletemode){
-                    add.setTitle("ADD");
-                    delete.setTitle("DELETE");
-                    intodeletemode=false;
-                    for(int i=0;i<type1list.size();i++){
-                        type1list.get(i).setdeletevisable(false);
-                    }
+                if(!MainActivity.islockchangeid){
+                    if(intodeletemode){
+                        add.setTitle("ADD");
+                        delete.setTitle("DELETE");
+                        intodeletemode=false;
+                        for(int i=0;i<type1list.size();i++){
+                            type1list.get(i).setdeletevisable(false);
+                        }
 
-                }else{
-                    int curtain_id;
-                    if(roomcurtain.size()==0){
-                        curtain_id=1;
                     }else{
-                        curtain_id=roomcurtain.get(roomcurtain.size()-1).curtain_id+1;
+                        int curtain_id;
+                        if(roomcurtain.size()==0){
+                            curtain_id=1;
+                        }else{
+                            curtain_id=roomcurtain.get(roomcurtain.size()-1).curtain_id+1;
+                        }
+                        ArrayList<Savecurtain> tips = new ArrayList<Savecurtain>();
+                        Savecurtain type1 = new Savecurtain(FounctionActivity.roomidfc,
+                                0,0,curtain_id,1,0,1,"curtain"+curtain_id,"close");
+                        tips.add(type1);
+                        MainActivity.mgr.addcurtain(tips);
+                        Toast.makeText(getActivity(), "add succeed", Toast.LENGTH_SHORT).show();
+                        curtainhandler.postDelayed(getcurtainlist,30);
                     }
-                    ArrayList<Savecurtain> tips = new ArrayList<Savecurtain>();
-                            Savecurtain type1 = new Savecurtain(FounctionActivity.roomidfc,
-                                    0,0,curtain_id,1,0,1,"curtain"+curtain_id,"close");
-                            tips.add(type1);
-                            MainActivity.mgr.addcurtain(tips);
-                    Toast.makeText(getActivity(), "add succeed", Toast.LENGTH_SHORT).show();
-                    curtainhandler.postDelayed(getcurtainlist,30);
                 }
+
                 break;
             case R.id.delete_curtain:
-                intodeletemode=!intodeletemode;
-                if(intodeletemode){
-                    add.setTitle("CANCLE DELETE");
-                    delete.setTitle("DELETE");
-                    if(type1list.size()>0){type1list.clear();}
-                    for(int i=0;i<roomcurtain.size();i++){
-                        switch(roomcurtain.get(i).curtain_type){
-                            case 1:
-                                CurtainType1 x=(CurtainType1)curtaincontrollayout.findViewById(roomcurtain.get(i).curtain_id);
-                                type1list.add(x);
-                                x.setdeletevisable(true);
-                                break;
-                            default:break;
+                if(!MainActivity.islockchangeid){
+                    intodeletemode=!intodeletemode;
+                    if(intodeletemode){
+                        add.setTitle("CANCLE DELETE");
+                        delete.setTitle("DELETE");
+                        if(type1list.size()>0){type1list.clear();}
+                        for(int i=0;i<roomcurtain.size();i++){
+                            switch(roomcurtain.get(i).curtain_type){
+                                case 1:
+                                    CurtainType1 x=(CurtainType1)curtaincontrollayout.findViewById(roomcurtain.get(i).curtain_id);
+                                    type1list.add(x);
+                                    x.setdeletevisable(true);
+                                    break;
+                                default:break;
+                            }
                         }
-                    }
-                }else{
-                    for(int i=0;i<type1list.size();i++){
-                        if(type1list.get(i).getIfneedtoDelete()){
-                            MainActivity.mgr.deletecurtain("curtain", type1list.get(i).getType1curtainid(), FounctionActivity.roomidfc);
+                    }else{
+                        for(int i=0;i<type1list.size();i++){
+                            if(type1list.get(i).getIfneedtoDelete()){
+                                MainActivity.mgr.deletecurtain("curtain", type1list.get(i).getType1curtainid(), FounctionActivity.roomidfc);
+                            }
                         }
+                        curtainhandler.postDelayed(getcurtainlist,30);
+                        add.setTitle("ADD");
+                        delete.setTitle("DELETE");
+                        intodeletemode=false;
                     }
-                    curtainhandler.postDelayed(getcurtainlist,30);
-                    add.setTitle("ADD");
-                    delete.setTitle("DELETE");
-                    intodeletemode=false;
+
                 }
 
                 break;
@@ -256,8 +262,11 @@ public class Curtain extends Fragment {
             }else if(FounctionActivity.ACTION_DELETECURTAIN.equals(action)){
                 curtainhandler.postDelayed(getcurtainlist,30);
             }else if(FounctionActivity.ACTION_SHAKE.equals(action)){
-                int shaketype=(intent.getIntExtra("shake_type",0));
-                shakeperform(shaketype);
+                if(!MainActivity.islockshake){
+                    int shaketype=(intent.getIntExtra("shake_type",0));
+                    shakeperform(shaketype);
+                }
+
             }
         }
     };

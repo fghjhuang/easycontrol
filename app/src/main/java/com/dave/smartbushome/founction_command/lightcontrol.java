@@ -65,7 +65,7 @@ public class lightcontrol {
             arrayAddtional[0] = getcolor("R",color);
             arrayAddtional[1] = getcolor("G",color);
             arrayAddtional[2] = getcolor("B",color);
-            arrayAddtional[3] = 100;
+            arrayAddtional[3] = (byte)(0x64-getcolor("A",color));
             arrayAddtional[4] = (byte) 0;
             arrayAddtional[5] = (byte) 0;
             shortLenOfAddtionalBuf = (short) (arrayAddtional.length);

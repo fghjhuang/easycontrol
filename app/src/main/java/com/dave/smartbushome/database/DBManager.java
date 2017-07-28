@@ -10,6 +10,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.dave.smartbushome.MainActivity;
+
 //http://blog.csdn.net/liuhe688/article/details/6715983/
 public class DBManager {
     private DBHelper helper;
@@ -49,40 +52,48 @@ public class DBManager {
      * @param tips
      */
     public void addroom(List<Saveroom> tips) {
-        db.beginTransaction();  //开始事务
-        try {
-            for (Saveroom tip : tips) {
-                db.execSQL("INSERT INTO room VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)", new Object[]{tip.room_id,
-                        tip.room_name, tip.light,tip.hvac,tip.mood,tip.fan,tip.curtain,tip.music,tip.room_icon,
-                        tip.room_icon_bg,tip.other,tip.media,tip.nio});
+        if(!MainActivity.islockchangeid){
+            db.beginTransaction();  //开始事务
+            try {
+                for (Saveroom tip : tips) {
+                    db.execSQL("INSERT INTO room VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)", new Object[]{tip.room_id,
+                            tip.room_name, tip.light,tip.hvac,tip.mood,tip.fan,tip.curtain,tip.music,tip.room_icon,
+                            tip.room_icon_bg,tip.other,tip.media,tip.nio});
+                }
+                db.setTransactionSuccessful();  //设置事务成功完成
+            } finally {
+                db.endTransaction();    //结束事务
             }
-            db.setTransactionSuccessful();  //设置事务成功完成
-        } finally {
-            db.endTransaction();    //结束事务
         }
     }
     public void addlight(List<Savelight> tips) {
-        db.beginTransaction();  //开始事务
-        try {
-            for (Savelight tip : tips) {
-                db.execSQL("INSERT INTO light VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?,?)", new Object[]{tip.room_id, tip.subnetID, tip.deviceID,tip.light_id,tip.light_statement
-                ,tip.channel,tip.brightvalue,tip.lightType,tip.light_icon});
+        if(!MainActivity.islockchangeid){
+            db.beginTransaction();  //开始事务
+            try {
+                for (Savelight tip : tips) {
+                    db.execSQL("INSERT INTO light VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?,?)", new Object[]{tip.room_id, tip.subnetID, tip.deviceID,tip.light_id,tip.light_statement
+                            ,tip.channel,tip.brightvalue,tip.lightType,tip.light_icon});
+                }
+                db.setTransactionSuccessful();  //设置事务成功完成
+            } finally {
+                db.endTransaction();    //结束事务
             }
-            db.setTransactionSuccessful();  //设置事务成功完成
-        } finally {
-            db.endTransaction();    //结束事务
         }
+
     }
     public void addhvac(List<Savehvac> tips) {
-        db.beginTransaction();  //开始事务
-        try {
-            for (Savehvac tip : tips) {
-                db.execSQL("INSERT INTO hvac VALUES(null, ?, ?, ?, ?, ?)", new Object[]{tip.room_id,tip.hvac_id, tip.subnetID, tip.deviceID,tip.hvac_remark});
+        if(!MainActivity.islockchangeid){
+            db.beginTransaction();  //开始事务
+            try {
+                for (Savehvac tip : tips) {
+                    db.execSQL("INSERT INTO hvac VALUES(null, ?, ?, ?, ?, ?)", new Object[]{tip.room_id,tip.hvac_id, tip.subnetID, tip.deviceID,tip.hvac_remark});
+                }
+                db.setTransactionSuccessful();  //设置事务成功完成
+            } finally {
+                db.endTransaction();    //结束事务
             }
-            db.setTransactionSuccessful();  //设置事务成功完成
-        } finally {
-            db.endTransaction();    //结束事务
         }
+
     }
     public void addmood(Savemood tip) {
         db.beginTransaction();  //开始事务
@@ -105,15 +116,18 @@ public class DBManager {
     }
 
     public void addmusic(List<Savemusic> tips) {
-        db.beginTransaction();  //开始事务
-        try {
-            for (Savemusic tip : tips) {
-                db.execSQL("INSERT INTO music VALUES(null, ?, ?, ?, ?)", new Object[]{tip.room_id, tip.music_id,tip.subnetID, tip.deviceID});
+        if(!MainActivity.islockchangeid){
+            db.beginTransaction();  //开始事务
+            try {
+                for (Savemusic tip : tips) {
+                    db.execSQL("INSERT INTO music VALUES(null, ?, ?, ?, ?)", new Object[]{tip.room_id, tip.music_id,tip.subnetID, tip.deviceID});
+                }
+                db.setTransactionSuccessful();  //设置事务成功完成
+            } finally {
+                db.endTransaction();    //结束事务
             }
-            db.setTransactionSuccessful();  //设置事务成功完成
-        } finally {
-            db.endTransaction();    //结束事务
         }
+
     }
 
     public void addsong(Savesong tip) {
@@ -141,28 +155,34 @@ public class DBManager {
     }
 
     public void addcurtain(List<Savecurtain> tips) {
-        db.beginTransaction();  //开始事务
-        try {
-            for (Savecurtain tip : tips) {
-                db.execSQL("INSERT INTO curtain VALUES(null, ?, ?, ?, ?,?, ?, ?, ?,?)", new Object[]{tip.room_id, tip.curtain_id, tip.subnetID, tip.deviceID
-                        , tip.curtain_remark, tip.curtain_type, tip.channel_1, tip.channel_2,tip.current_state});
+        if(!MainActivity.islockchangeid){
+            db.beginTransaction();  //开始事务
+            try {
+                for (Savecurtain tip : tips) {
+                    db.execSQL("INSERT INTO curtain VALUES(null, ?, ?, ?, ?,?, ?, ?, ?,?)", new Object[]{tip.room_id, tip.curtain_id, tip.subnetID, tip.deviceID
+                            , tip.curtain_remark, tip.curtain_type, tip.channel_1, tip.channel_2,tip.current_state});
+                }
+                db.setTransactionSuccessful();  //设置事务成功完成
+            } finally {
+                db.endTransaction();    //结束事务
             }
-            db.setTransactionSuccessful();  //设置事务成功完成
-        } finally {
-            db.endTransaction();    //结束事务
         }
+
     }
     public void addother(List<Saveother> tips) {
-        db.beginTransaction();  //开始事务
-        try {
-            for (Saveother tip : tips) {
-                db.execSQL("INSERT INTO other VALUES(null, ?, ?, ?, ?, ?, ?, ?,?,?)", new Object[]{tip.room_id, tip.subnetID, tip.deviceID,
-                        tip.other_id,tip.other_statement,tip.channel_1,tip.channel_2,tip.other_icon,tip.other_type});
+        if(!MainActivity.islockchangeid){
+            db.beginTransaction();  //开始事务
+            try {
+                for (Saveother tip : tips) {
+                    db.execSQL("INSERT INTO other VALUES(null, ?, ?, ?, ?, ?, ?, ?,?,?)", new Object[]{tip.room_id, tip.subnetID, tip.deviceID,
+                            tip.other_id,tip.other_statement,tip.channel_1,tip.channel_2,tip.other_icon,tip.other_type});
+                }
+                db.setTransactionSuccessful();  //设置事务成功完成
+            } finally {
+                db.endTransaction();    //结束事务
             }
-            db.setTransactionSuccessful();  //设置事务成功完成
-        } finally {
-            db.endTransaction();    //结束事务
         }
+
     }
 
     public void addmarco(Savemarco tip) {
@@ -189,25 +209,31 @@ public class DBManager {
     }
 
     public void addfan(Savefan tip) {
-        db.beginTransaction();  //开始事务
-        try {
-            db.execSQL("INSERT INTO fan VALUES(null, ?,?,?,?,?,?,?,?)", new Object[]{tip.room_id,tip.subnetID,tip.deviceID,
-                    tip.fan_id,tip.fan_statement,tip.channel,tip.fan_Type,tip.fan_icon});
-            db.setTransactionSuccessful();  //设置事务成功完成
-        } finally {
-            db.endTransaction();    //结束事务
+        if(!MainActivity.islockchangeid){
+            db.beginTransaction();  //开始事务
+            try {
+                db.execSQL("INSERT INTO fan VALUES(null, ?,?,?,?,?,?,?,?)", new Object[]{tip.room_id,tip.subnetID,tip.deviceID,
+                        tip.fan_id,tip.fan_statement,tip.channel,tip.fan_Type,tip.fan_icon});
+                db.setTransactionSuccessful();  //设置事务成功完成
+            } finally {
+                db.endTransaction();    //结束事务
+            }
         }
+
     }
 
     public void addmedia(Savemedia tip) {
-        db.beginTransaction();  //开始事务
-        try {
-            db.execSQL("INSERT INTO media VALUES(null, ?,?,?,?,?,?)", new Object[]{tip.room_id,tip.subnetID,tip.deviceID,
-                    tip.media_id,tip.media_statement,tip.media_icon});
-            db.setTransactionSuccessful();  //设置事务成功完成
-        } finally {
-            db.endTransaction();    //结束事务
+        if(!MainActivity.islockchangeid){
+            db.beginTransaction();  //开始事务
+            try {
+                db.execSQL("INSERT INTO media VALUES(null, ?,?,?,?,?,?)", new Object[]{tip.room_id,tip.subnetID,tip.deviceID,
+                        tip.media_id,tip.media_statement,tip.media_icon});
+                db.setTransactionSuccessful();  //设置事务成功完成
+            } finally {
+                db.endTransaction();    //结束事务
+            }
         }
+
     }
 
     public void addmediabutton(List<Savemediabutton> tips) {
@@ -223,14 +249,17 @@ public class DBManager {
         }
     }
     public void addsecurity(Savesecurity tip) {
-        db.beginTransaction();  //开始事务
-        try {
-            db.execSQL("INSERT INTO security VALUES(null, ?,?,?,?,?)", new Object[]{tip.room_id,
-                    tip.security_id,tip.subnetID,tip.deviceID,tip.password});
-            db.setTransactionSuccessful();  //设置事务成功完成
-        } finally {
-            db.endTransaction();    //结束事务
+        if(!MainActivity.islockchangeid){
+            db.beginTransaction();  //开始事务
+            try {
+                db.execSQL("INSERT INTO security VALUES(null, ?,?,?,?,?)", new Object[]{tip.room_id,
+                        tip.security_id,tip.subnetID,tip.deviceID,tip.password});
+                db.setTransactionSuccessful();  //设置事务成功完成
+            } finally {
+                db.endTransaction();    //结束事务
+            }
         }
+
     }
     public void addsecurityarea(SavesecurityArea tip) {
         db.beginTransaction();  //开始事务
@@ -242,19 +271,22 @@ public class DBManager {
         }
     }
     public void addenergy(Saveenergy tip) {
-        db.beginTransaction();  //开始事务
-        try {
-            db.execSQL("INSERT INTO energy VALUES(null, ?,?,?,?,?,?,?,?,?,?,?,?,?," +
-                    "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new Object[]{tip.energy_id,tip.subnetID,tip.deviceID,
-                    tip.energyname,tip.channel1_name, tip.channel2_name,tip.channel3_name,tip.channel4_name,
-                    tip.channel5_name,tip.channel6_name,tip.channel7_name,tip.channel8_name,tip.channel9_name,
-                    tip.channel10_name,tip.channel11_name,tip.channel12_name,tip.channel13_name,tip.channel14_name,
-                    tip.channel15_name,tip.channel16_name,tip.channel17_name,tip.channel18_name,tip.channel19_name,
-                    tip.channel20_name,tip.channel21_name,tip.channel22_name,tip.channel23_name,tip.channel24_name,});
-            db.setTransactionSuccessful();  //设置事务成功完成
-        } finally {
-            db.endTransaction();    //结束事务
+        if(!MainActivity.islockchangeid){
+            db.beginTransaction();  //开始事务
+            try {
+                db.execSQL("INSERT INTO energy VALUES(null, ?,?,?,?,?,?,?,?,?,?,?,?,?," +
+                        "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new Object[]{tip.energy_id,tip.subnetID,tip.deviceID,
+                        tip.energyname,tip.channel1_name, tip.channel2_name,tip.channel3_name,tip.channel4_name,
+                        tip.channel5_name,tip.channel6_name,tip.channel7_name,tip.channel8_name,tip.channel9_name,
+                        tip.channel10_name,tip.channel11_name,tip.channel12_name,tip.channel13_name,tip.channel14_name,
+                        tip.channel15_name,tip.channel16_name,tip.channel17_name,tip.channel18_name,tip.channel19_name,
+                        tip.channel20_name,tip.channel21_name,tip.channel22_name,tip.channel23_name,tip.channel24_name,});
+                db.setTransactionSuccessful();  //设置事务成功完成
+            } finally {
+                db.endTransaction();    //结束事务
+            }
         }
+
     }
     public void addenergydata(Saveenergydata tip) {
         db.beginTransaction();  //开始事务
@@ -275,34 +307,40 @@ public class DBManager {
         }
     }
     public void addnio(Savenio tip) {
-        db.beginTransaction();  //开始事务
-        try {
-            db.execSQL("INSERT INTO nio VALUES(null,?,?,?,?,? ," +
-                    "?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ,?,?,?,?,?,?,?," +
-                    "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new Object[]{tip.room_id,tip.subnetID,
-                    tip.deviceID,tip.nio_id,tip.nio_remark,
-                    tip.name1,tip.name2,tip.name3, tip.name4,tip.name5,tip.name6,
-                    tip.name7,tip.name8,tip.name9, tip.name10,tip.name11,tip.name12,
-                    tip.name13,tip.name14,tip.name15, tip.value1,tip.value2,tip.value3,
-                    tip.value4,tip.value5,tip.value6,tip.value7,tip.value8,tip.value9,
-                    tip.value10,tip.value11,tip.value12,tip.value13,tip.value14,tip.value15,
-                    tip.value16,tip.value17,tip.value18,tip.value19,tip.value20,tip.value21,
-                    tip.value22,tip.value23,tip.value24,tip.value25,tip.value26,tip.value27});
-            db.setTransactionSuccessful();  //设置事务成功完成
-        } finally {
-            db.endTransaction();    //结束事务
+        if(!MainActivity.islockchangeid){
+            db.beginTransaction();  //开始事务
+            try {
+                db.execSQL("INSERT INTO nio VALUES(null,?,?,?,?,? ," +
+                        "?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ,?,?,?,?,?,?,?," +
+                        "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", new Object[]{tip.room_id,tip.subnetID,
+                        tip.deviceID,tip.nio_id,tip.nio_remark,
+                        tip.name1,tip.name2,tip.name3, tip.name4,tip.name5,tip.name6,
+                        tip.name7,tip.name8,tip.name9, tip.name10,tip.name11,tip.name12,
+                        tip.name13,tip.name14,tip.name15, tip.value1,tip.value2,tip.value3,
+                        tip.value4,tip.value5,tip.value6,tip.value7,tip.value8,tip.value9,
+                        tip.value10,tip.value11,tip.value12,tip.value13,tip.value14,tip.value15,
+                        tip.value16,tip.value17,tip.value18,tip.value19,tip.value20,tip.value21,
+                        tip.value22,tip.value23,tip.value24,tip.value25,tip.value26,tip.value27});
+                db.setTransactionSuccessful();  //设置事务成功完成
+            } finally {
+                db.endTransaction();    //结束事务
+            }
         }
+
     }
 
     public void addstatus(Savestatus tip) {
-        db.beginTransaction();  //开始事务
-        try {
-            db.execSQL("INSERT INTO status VALUES(null, ?,?,?,?,?,?,?,?)", new Object[]{tip.status_id,tip.name,tip.subnetID,tip.deviceID
-            ,tip.type,tip.channel,tip.status_icon,tip.unit});
-            db.setTransactionSuccessful();  //设置事务成功完成
-        } finally {
-            db.endTransaction();    //结束事务
+        if(!MainActivity.islockchangeid){
+            db.beginTransaction();  //开始事务
+            try {
+                db.execSQL("INSERT INTO status VALUES(null, ?,?,?,?,?,?,?,?)", new Object[]{tip.status_id,tip.name,tip.subnetID,tip.deviceID
+                        ,tip.type,tip.channel,tip.status_icon,tip.unit});
+                db.setTransactionSuccessful();  //设置事务成功完成
+            } finally {
+                db.endTransaction();    //结束事务
+            }
         }
+
     }
 
     public void addschedule(Saveschedule tip){
@@ -358,47 +396,56 @@ public class DBManager {
     }
 
     public void updateroom(Saveroom tips,String colvalue) {
-        ContentValues cv = new ContentValues();
-        if(colvalue.equals("light")){
-            cv.put(colvalue, tips.light);
-        }else if(colvalue.equals("hvac")){
-            cv.put(colvalue, tips.hvac);
-        }else if(colvalue.equals("mood")){
-            cv.put(colvalue, tips.mood);
-        }else if(colvalue.equals("fan")){
-            cv.put(colvalue, tips.fan);
-        }else if(colvalue.equals("curtain")){
-            cv.put(colvalue, tips.curtain);
-        }else if(colvalue.equals("music")){
-            cv.put(colvalue, tips.music);
-        }else if(colvalue.equals("other")){
-            cv.put(colvalue,tips.other);
-        }else if(colvalue.equals("media")){
-            cv.put(colvalue,tips.media);
-        }else if(colvalue.equals("9 in 1")){
-            cv.put("nio",tips.nio);
+        if(!MainActivity.islockchangeid){
+            ContentValues cv = new ContentValues();
+            if(colvalue.equals("light")){
+                cv.put(colvalue, tips.light);
+            }else if(colvalue.equals("hvac")){
+                cv.put(colvalue, tips.hvac);
+            }else if(colvalue.equals("mood")){
+                cv.put(colvalue, tips.mood);
+            }else if(colvalue.equals("fan")){
+                cv.put(colvalue, tips.fan);
+            }else if(colvalue.equals("curtain")){
+                cv.put(colvalue, tips.curtain);
+            }else if(colvalue.equals("music")){
+                cv.put(colvalue, tips.music);
+            }else if(colvalue.equals("other")){
+                cv.put(colvalue,tips.other);
+            }else if(colvalue.equals("media")){
+                cv.put(colvalue,tips.media);
+            }else if(colvalue.equals("9 in 1")){
+                cv.put("nio",tips.nio);
+            }
+            db.update("room", cv, "room_id = ?", new String[]{String.valueOf(tips.room_id)});
         }
-        db.update("room", cv, "room_id = ?", new String[]{String.valueOf(tips.room_id)});
+
     }
 
     public void updatelight(Savelight tips){
-        ContentValues cv = new ContentValues();
-        cv.put("subnetID",tips.subnetID);
-        cv.put("deviceID",tips.deviceID);
-        cv.put("channel",tips.channel);
-        cv.put("light_statement",tips.light_statement);
-        cv.put("light_icon",tips.light_icon);
-        cv.put("lightType",tips.lightType);
-        db.update("light", cv, "light_id = ? and room_id = ?", new String[]{String.valueOf(tips.light_id),String.valueOf(tips.room_id)});
-    }
+        if(!MainActivity.islockchangeid){
+            ContentValues cv = new ContentValues();
+            cv.put("subnetID",tips.subnetID);
+            cv.put("deviceID",tips.deviceID);
+            cv.put("channel",tips.channel);
+            cv.put("light_statement",tips.light_statement);
+            cv.put("light_icon",tips.light_icon);
+            cv.put("lightType",tips.lightType);
+            db.update("light", cv, "light_id = ? and room_id = ?", new String[]{String.valueOf(tips.light_id),String.valueOf(tips.room_id)});
+
+        }
+     }
 
     public void updatehvac(Savehvac tips){
-        ContentValues cv = new ContentValues();
-        cv.put("subnetID",tips.subnetID);
-        cv.put("deviceID",tips.deviceID);
-        cv.put("hvac_statement",tips.hvac_remark);
-        db.update("hvac", cv, "hvac_id = ? and room_id = ?", new String[]{String.valueOf(tips.hvac_id),String.valueOf(tips.room_id)});
-    }
+        if(!MainActivity.islockchangeid){
+            ContentValues cv = new ContentValues();
+            cv.put("subnetID",tips.subnetID);
+            cv.put("deviceID",tips.deviceID);
+            cv.put("hvac_statement",tips.hvac_remark);
+            db.update("hvac", cv, "hvac_id = ? and room_id = ?", new String[]{String.valueOf(tips.hvac_id),String.valueOf(tips.room_id)});
+
+        }
+       }
 
     public void updatemoodbutton(Savemoodbutton tips){
         ContentValues cv = new ContentValues();
@@ -408,12 +455,15 @@ public class DBManager {
     }
 
     public void updatemusic(Savemusic tips){
-        ContentValues cv = new ContentValues();
-        cv.put("music_id",tips.music_id);
-        cv.put("subnetID",tips.subnetID);
-        cv.put("deviceID",tips.deviceID);
-        db.update("music", cv, "music_id = ? and room_id = ?", new String[]{String.valueOf(tips.music_id),String.valueOf(tips.room_id)});
-    }
+        if(!MainActivity.islockchangeid){
+            ContentValues cv = new ContentValues();
+            cv.put("music_id",tips.music_id);
+            cv.put("subnetID",tips.subnetID);
+            cv.put("deviceID",tips.deviceID);
+            db.update("music", cv, "music_id = ? and room_id = ?", new String[]{String.valueOf(tips.music_id),String.valueOf(tips.room_id)});
+
+        }
+      }
 
     public void updatesong(Savesong tips){
         ContentValues cv = new ContentValues();
@@ -429,14 +479,17 @@ public class DBManager {
     }
 
     public void updatecurtain(Savecurtain tips){
-        ContentValues cv = new ContentValues();
-        cv.put("subnetID",tips.subnetID);
-        cv.put("deviceID",tips.deviceID);
-        cv.put("channel_1",tips.channel_1);
-        cv.put("channel_2",tips.channel_2);
-        cv.put("curtain_remark",tips.curtain_remark);
-        db.update("curtain", cv, "curtain_id = ? and room_id = ?", new String[]{String.valueOf(tips.curtain_id),String.valueOf(tips.room_id)});
-    }
+        if(!MainActivity.islockchangeid){
+            ContentValues cv = new ContentValues();
+            cv.put("subnetID",tips.subnetID);
+            cv.put("deviceID",tips.deviceID);
+            cv.put("channel_1",tips.channel_1);
+            cv.put("channel_2",tips.channel_2);
+            cv.put("curtain_remark",tips.curtain_remark);
+            db.update("curtain", cv, "curtain_id = ? and room_id = ?", new String[]{String.valueOf(tips.curtain_id),String.valueOf(tips.room_id)});
+
+        }
+        }
 
     public void updatecurtainstate(Savecurtain tips){
         ContentValues cv = new ContentValues();
@@ -445,15 +498,18 @@ public class DBManager {
     }
 
     public void updateother(Saveother tips){
-        ContentValues cv = new ContentValues();
-        cv.put("subnetID",tips.subnetID);
-        cv.put("deviceID",tips.deviceID);
-        cv.put("channel_1",tips.channel_1);
-        cv.put("channel_2",tips.channel_2);
-        cv.put("other_statement",tips.other_statement);
-        cv.put("other_icon",tips.other_icon);
-        db.update("other", cv, "other_id = ? and room_id = ?", new String[]{String.valueOf(tips.other_id),String.valueOf(tips.room_id)});
-    }
+        if(!MainActivity.islockchangeid){
+            ContentValues cv = new ContentValues();
+            cv.put("subnetID",tips.subnetID);
+            cv.put("deviceID",tips.deviceID);
+            cv.put("channel_1",tips.channel_1);
+            cv.put("channel_2",tips.channel_2);
+            cv.put("other_statement",tips.other_statement);
+            cv.put("other_icon",tips.other_icon);
+            db.update("other", cv, "other_id = ? and room_id = ?", new String[]{String.valueOf(tips.other_id),String.valueOf(tips.room_id)});
+
+        }
+        }
 
     public void updatemarco(Savemarco tips,int neworder){
         ContentValues cv = new ContentValues();
@@ -469,41 +525,53 @@ public class DBManager {
     }
 
     public void updatefan(Savefan tips){
-        ContentValues cv = new ContentValues();
-        cv.put("subnetID",tips.subnetID);
-        cv.put("deviceID",tips.deviceID);
-        cv.put("channel",tips.channel);
-        cv.put("fan_statement",tips.fan_statement);
-        db.update("fan", cv, "fan_id = ? and room_id = ?", new String[]{String.valueOf(tips.fan_id),String.valueOf(tips.room_id)});
-    }
+        if(!MainActivity.islockchangeid){
+            ContentValues cv = new ContentValues();
+            cv.put("subnetID",tips.subnetID);
+            cv.put("deviceID",tips.deviceID);
+            cv.put("channel",tips.channel);
+            cv.put("fan_statement",tips.fan_statement);
+            db.update("fan", cv, "fan_id = ? and room_id = ?", new String[]{String.valueOf(tips.fan_id),String.valueOf(tips.room_id)});
+
+        }
+        }
 
     public void updatemedia(Savemedia tips){
-        ContentValues cv = new ContentValues();
-        cv.put("subnetID",tips.subnetID);
-        cv.put("deviceID",tips.deviceID);
-        cv.put("media_statement",tips.media_statement);
-        cv.put("media_icon",tips.media_icon);
-        db.update("media", cv, "media_id = ? and room_id = ? ",
-                new String[]{String.valueOf(tips.media_id),String.valueOf(tips.room_id)});
-    }
+        if(!MainActivity.islockchangeid){
+            ContentValues cv = new ContentValues();
+            cv.put("subnetID",tips.subnetID);
+            cv.put("deviceID",tips.deviceID);
+            cv.put("media_statement",tips.media_statement);
+            cv.put("media_icon",tips.media_icon);
+            db.update("media", cv, "media_id = ? and room_id = ? ",
+                    new String[]{String.valueOf(tips.media_id),String.valueOf(tips.room_id)});
+
+        }
+         }
 
     public void updatemediabutton(Savemediabutton tips){
-        ContentValues cv = new ContentValues();
-        cv.put("media_swno",tips.media_swno);
-        cv.put("media_controltype",tips.media_controltype);
-        cv.put("ifIRmarco",tips.ifIRmarco);
-        db.update("mediabutton", cv, "media_id = ? and room_id = ? and button_num=?",
-                new String[]{String.valueOf(tips.media_id), String.valueOf(tips.room_id), String.valueOf(tips.button_num)});
-    }
+        if(!MainActivity.islockchangeid){
+            ContentValues cv = new ContentValues();
+            cv.put("media_swno",tips.media_swno);
+            cv.put("media_controltype",tips.media_controltype);
+            cv.put("ifIRmarco",tips.ifIRmarco);
+            db.update("mediabutton", cv, "media_id = ? and room_id = ? and button_num=?",
+                    new String[]{String.valueOf(tips.media_id), String.valueOf(tips.room_id), String.valueOf(tips.button_num)});
+
+        }
+        }
 
     public void updatesecurity(Savesecurity tips){
-        ContentValues cv = new ContentValues();
-        cv.put("subnetID",tips.subnetID);
-        cv.put("deviceID",tips.deviceID);
-        cv.put("password",tips.password);
-        db.update("security", cv, " room_id = ? and security_id=?",
-                new String[]{String.valueOf(0),String.valueOf(0)});
-    }
+        if(!MainActivity.islockchangeid){
+            ContentValues cv = new ContentValues();
+            cv.put("subnetID",tips.subnetID);
+            cv.put("deviceID",tips.deviceID);
+            cv.put("password",tips.password);
+            db.update("security", cv, " room_id = ? and security_id=?",
+                    new String[]{String.valueOf(0),String.valueOf(0)});
+
+        }
+         }
     public void updatesecurityarea(SavesecurityArea tips){
         ContentValues cv = new ContentValues();
         cv.put("areaName",tips.areaName);
@@ -511,68 +579,80 @@ public class DBManager {
                 new String[]{String.valueOf(0),String.valueOf(tips.areaNO)});
     }
     public void updateenergy(Saveenergy tips){
-        ContentValues cv = new ContentValues();
-        cv.put("subnetID",tips.subnetID);
-        cv.put("deviceID",tips.deviceID);
-        cv.put("energyname",tips.energyname);
-        db.update("energy", cv, " energy_id=? ", new String[]{String.valueOf(tips.energy_id)});
-    }
+        if(!MainActivity.islockchangeid){
+            ContentValues cv = new ContentValues();
+            cv.put("subnetID",tips.subnetID);
+            cv.put("deviceID",tips.deviceID);
+            cv.put("energyname",tips.energyname);
+            db.update("energy", cv, " energy_id=? ", new String[]{String.valueOf(tips.energy_id)});
+
+        }
+         }
     public void updateenergychannelname(int energy_id,String channel,String name){
         ContentValues cv = new ContentValues();
         cv.put(channel,name);
         db.update("energy", cv, " energy_id=? ", new String[]{String.valueOf(energy_id)});
     }
     public void updateniosetting(Savenio tips){
-        ContentValues cv = new ContentValues();
-        cv.put("subnetID",tips.subnetID);
-        cv.put("deviceID",tips.deviceID);
-        cv.put("nio_remark",tips.nio_remark);
-        db.update("nio", cv, "room_id = ? and nio_id=? ",  new String[]{String.valueOf(tips.room_id),String.valueOf(tips.nio_id)});
-    }
-    public void updateniovalue(int roomid,int nioid,String name,int value,int num){
-        ContentValues cv = new ContentValues();
-        switch (num){
-            case 1:cv.put("name1",name);cv.put("value1",value);break;
-            case 2:cv.put("name2",name);cv.put("value2",value);break;
-            case 3:cv.put("name3",name);cv.put("value3",value);break;
-            case 4:cv.put("name4",name);cv.put("value4",value);break;
-            case 5:cv.put("name5",name);cv.put("value5",value);break;
-            case 6:cv.put("name6",name);cv.put("value6",value);break;
-            case 7:cv.put("name7",name);cv.put("value7",value);break;
-            case 8:cv.put("name8",name);cv.put("value8",value);break;
-            case 9:cv.put("name9",name);cv.put("value9",value);break;
-            case 10:cv.put("name10",name);cv.put("value10",value);break;
-            case 11:cv.put("name11",name);cv.put("value11",value);break;
-            case 12:cv.put("name12",name);cv.put("value12",value);break;
-            case 13:cv.put("name13",name);cv.put("value13",value);break;
-            case 14:cv.put("name14",name);cv.put("value14",value);break;
-            case 15:cv.put("name15",name);cv.put("value15",value);break;
-            case 16:cv.put("value16",value);break;
-            case 17:cv.put("value17",value);break;
-            case 18:cv.put("value18",value);break;
-            case 19:cv.put("value19",value);break;
-            case 20:cv.put("value20",value);break;
-            case 21:cv.put("value21",value);break;
-            case 22:cv.put("value22",value);break;
-            case 23:cv.put("value23",value);break;
-            case 24:cv.put("value24",value);break;
-            case 25:cv.put("value25",value);break;
-            case 26:cv.put("value26",value);break;
-            case 27:cv.put("value27",value);break;
+        if(!MainActivity.islockchangeid){
+            ContentValues cv = new ContentValues();
+            cv.put("subnetID",tips.subnetID);
+            cv.put("deviceID",tips.deviceID);
+            cv.put("nio_remark",tips.nio_remark);
+            db.update("nio", cv, "room_id = ? and nio_id=? ",  new String[]{String.valueOf(tips.room_id),String.valueOf(tips.nio_id)});
+
         }
-        db.update("nio", cv, " room_id = ? and nio_id=?  ", new String[]{String.valueOf(roomid),String.valueOf(nioid)});
-    }
+        }
+    public void updateniovalue(int roomid,int nioid,String name,int value,int num){
+        if(!MainActivity.islockchangeid){
+            ContentValues cv = new ContentValues();
+            switch (num){
+                case 1:cv.put("name1",name);cv.put("value1",value);break;
+                case 2:cv.put("name2",name);cv.put("value2",value);break;
+                case 3:cv.put("name3",name);cv.put("value3",value);break;
+                case 4:cv.put("name4",name);cv.put("value4",value);break;
+                case 5:cv.put("name5",name);cv.put("value5",value);break;
+                case 6:cv.put("name6",name);cv.put("value6",value);break;
+                case 7:cv.put("name7",name);cv.put("value7",value);break;
+                case 8:cv.put("name8",name);cv.put("value8",value);break;
+                case 9:cv.put("name9",name);cv.put("value9",value);break;
+                case 10:cv.put("name10",name);cv.put("value10",value);break;
+                case 11:cv.put("name11",name);cv.put("value11",value);break;
+                case 12:cv.put("name12",name);cv.put("value12",value);break;
+                case 13:cv.put("name13",name);cv.put("value13",value);break;
+                case 14:cv.put("name14",name);cv.put("value14",value);break;
+                case 15:cv.put("name15",name);cv.put("value15",value);break;
+                case 16:cv.put("value16",value);break;
+                case 17:cv.put("value17",value);break;
+                case 18:cv.put("value18",value);break;
+                case 19:cv.put("value19",value);break;
+                case 20:cv.put("value20",value);break;
+                case 21:cv.put("value21",value);break;
+                case 22:cv.put("value22",value);break;
+                case 23:cv.put("value23",value);break;
+                case 24:cv.put("value24",value);break;
+                case 25:cv.put("value25",value);break;
+                case 26:cv.put("value26",value);break;
+                case 27:cv.put("value27",value);break;
+            }
+            db.update("nio", cv, " room_id = ? and nio_id=?  ", new String[]{String.valueOf(roomid),String.valueOf(nioid)});
+
+        }
+        }
 
     public void updatestatus(Savestatus tip){
-        ContentValues cv = new ContentValues();
-        cv.put("name",tip.name);
-        cv.put("subnetID",tip.subnetID);
-        cv.put("deviceID",tip.deviceID);
-        cv.put("status_icon",tip.status_icon);
-        cv.put("channel",tip.channel);
-        cv.put("unit",tip.unit);
-        db.update("status", cv, " status_id=? ", new String[]{String.valueOf(tip.status_id)});
-    }
+        if(!MainActivity.islockchangeid){
+            ContentValues cv = new ContentValues();
+            cv.put("name",tip.name);
+            cv.put("subnetID",tip.subnetID);
+            cv.put("deviceID",tip.deviceID);
+            cv.put("status_icon",tip.status_icon);
+            cv.put("channel",tip.channel);
+            cv.put("unit",tip.unit);
+            db.update("status", cv, " status_id=? ", new String[]{String.valueOf(tip.status_id)});
+
+        }
+         }
 
     public void updateschedule(Saveschedule tip){
         ContentValues cv = new ContentValues();
@@ -633,18 +713,30 @@ public class DBManager {
      *
      */
     public void deletefounction(String table,int roomid){
+        if(!MainActivity.islockchangeid){
             db.delete(table, "room_id = ?", new String[]{String.valueOf(roomid)});
+        }
+
     }
 
     public void deletelight(String table,int lightid,int roomid){
-        db.delete(table, "light_id = ? and room_id = ?", new String[]{String.valueOf(lightid),String.valueOf(roomid)});
-    }
+        if(!MainActivity.islockchangeid){
+            db.delete(table, "light_id = ? and room_id = ?", new String[]{String.valueOf(lightid),String.valueOf(roomid)});
+
+        }
+     }
     public void deletefc(String table,int roomid){
-        db.delete(table, "room_id = ?", new String[]{String.valueOf(roomid)});
-    }
+        if(!MainActivity.islockchangeid){
+            db.delete(table, "room_id = ?", new String[]{String.valueOf(roomid)});
+
+        }
+     }
 
     public void deletehvac(String table,int hvacid,int roomid){
-        db.delete(table, "hvac_id = ? and room_id = ?", new String[]{String.valueOf(hvacid),String.valueOf(roomid)});
+        if(!MainActivity.islockchangeid){
+            db.delete(table, "hvac_id = ? and room_id = ?", new String[]{String.valueOf(hvacid),String.valueOf(roomid)});
+
+        }
     }
     public void deletemood(String table,int moodid,int roomid){
         db.delete(table, "mood_id = ? and room_id = ?", new String[]{String.valueOf(moodid),String.valueOf(roomid)});
@@ -655,23 +747,35 @@ public class DBManager {
     }
 
     public void deletemusic(String table,int musicid,int roomid){
-        db.delete(table, "music_id = ? and room_id = ?", new String[]{String.valueOf(musicid),String.valueOf(roomid)});
+        if(!MainActivity.islockchangeid){
+            db.delete(table, "music_id = ? and room_id = ?", new String[]{String.valueOf(musicid),String.valueOf(roomid)});
+
+        }
     }
 
     public void deletesong(String table,int roomid){
-        db.delete(table, "room_id = ?", new String[]{String.valueOf(roomid)});
-    }
+
+            db.delete(table, "room_id = ?", new String[]{String.valueOf(roomid)});
+
+
+      }
 
     public void deleteradio(String table,int roomid){
         db.delete(table, "room_id = ?", new String[]{String.valueOf(roomid)});
     }
     public void deletecurtain(String table,int curtainid,int roomid){
-        db.delete(table, "curtain_id = ? and room_id = ?", new String[]{String.valueOf(curtainid),String.valueOf(roomid)});
+        if(!MainActivity.islockchangeid){
+            db.delete(table, "curtain_id = ? and room_id = ?", new String[]{String.valueOf(curtainid),String.valueOf(roomid)});
+
+        }
     }
 
     public void deleteother(String table,int onoffid,int roomid){
-        db.delete(table, "other_id = ? and room_id = ?", new String[]{String.valueOf(onoffid),String.valueOf(roomid)});
-    }
+        if(!MainActivity.islockchangeid){
+            db.delete(table, "other_id = ? and room_id = ?", new String[]{String.valueOf(onoffid),String.valueOf(roomid)});
+
+        }
+     }
 
     public void deletemarco(String table,int marcoid,int sentorder){
         db.delete(table, "marco_id = ? and sentorder = ?", new String[]{String.valueOf(marcoid),String.valueOf(sentorder)});
@@ -681,29 +785,47 @@ public class DBManager {
         db.delete(table, "marco_id = ? ", new String[]{String.valueOf(marcoid)});
     }
     public void deletefan(String table,int fanid,int roomid){
-        db.delete(table, "fan_id = ? and room_id = ?", new String[]{String.valueOf(fanid),String.valueOf(roomid)});
-    }
+        if(!MainActivity.islockchangeid){
+            db.delete(table, "fan_id = ? and room_id = ?", new String[]{String.valueOf(fanid),String.valueOf(roomid)});
+
+        }
+     }
 
     public void deletemedia(String table,int mediaid,int roomid){
-        db.delete(table, "media_id = ? and room_id = ?", new String[]{String.valueOf(mediaid),String.valueOf(roomid)});
-    }
+        if(!MainActivity.islockchangeid){
+            db.delete(table, "media_id = ? and room_id = ?", new String[]{String.valueOf(mediaid),String.valueOf(roomid)});
+
+        }
+     }
     public void deletemediabutton(String table,int mediaid,int roomid){
-        db.delete(table, "media_id = ? and room_id = ?", new String[]{String.valueOf(mediaid), String.valueOf(roomid)});
-    }
+        if(!MainActivity.islockchangeid){
+            db.delete(table, "media_id = ? and room_id = ?", new String[]{String.valueOf(mediaid), String.valueOf(roomid)});
+
+        }
+     }
     public void deletesecurityarea(String table){
         db.delete(table, "security_id = ? ", new String[]{String.valueOf(0)});
     }
     public void deleteenergy(String table,Saveenergy tip){
-        db.delete(table, "energy_id = ? ", new String[]{String.valueOf(tip.energy_id)});
+        if(!MainActivity.islockchangeid){
+            db.delete(table, "energy_id = ? ", new String[]{String.valueOf(tip.energy_id)});
+
+        }
     }
     public void deleteenergydata(String table,Saveenergydata tip){
         db.delete(table, "energy_id = ? ", new String[]{String.valueOf(tip.energy_id)});
     }
     public void deletenio(String table,int nioid,int roomid){
-        db.delete(table, "nio_id = ? and room_id = ?",new String[]{String.valueOf(nioid),String.valueOf(roomid)});
+        if(!MainActivity.islockchangeid){
+            db.delete(table, "nio_id = ? and room_id = ?",new String[]{String.valueOf(nioid),String.valueOf(roomid)});
+
+        }
     }
     public void deletestatus(String table,int status_id){
-        db.delete(table, "status_id = ? ", new String[]{String.valueOf(status_id)});
+        if(!MainActivity.islockchangeid){
+            db.delete(table, "status_id = ? ", new String[]{String.valueOf(status_id)});
+
+        }
     }
 
     public void deleteschedule(int schedule_id){

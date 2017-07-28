@@ -93,54 +93,60 @@ public class Fan extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_curtain:
-                if(intodeletemode){
-                    add.setTitle("ADD");
-                    delete.setTitle("DELETE");
-                    intodeletemode=false;
-                    for(int i=0;i<type1list.size();i++){
-                        type1list.get(i).setdeletevisable(false);
-                    }
+                if(!MainActivity.islockchangeid){
+                    if(intodeletemode){
+                        add.setTitle("ADD");
+                        delete.setTitle("DELETE");
+                        intodeletemode=false;
+                        for(int i=0;i<type1list.size();i++){
+                            type1list.get(i).setdeletevisable(false);
+                        }
 
-                }else{
-                    int fan_id;
-                    if(roomfan.size()==0){
-                        fan_id=1;
                     }else{
-                        fan_id=roomfan.get(roomfan.size()-1).fan_id+1;
+                        int fan_id;
+                        if(roomfan.size()==0){
+                            fan_id=1;
+                        }else{
+                            fan_id=roomfan.get(roomfan.size()-1).fan_id+1;
+                        }
+                        Savefan type1 = new Savefan(FounctionActivity.roomidfc,
+                                0,0,fan_id,"fan"+fan_id,0,1,"fan_icon1");
+                        MainActivity.mgr.addfan(type1);
+                        Toast.makeText(getActivity(), "add succeed", Toast.LENGTH_SHORT).show();
+                        fanhandler.postDelayed(getfanlist,30);
                     }
-                    Savefan type1 = new Savefan(FounctionActivity.roomidfc,
-                            0,0,fan_id,"fan"+fan_id,0,1,"fan_icon1");
-                    MainActivity.mgr.addfan(type1);
-                    Toast.makeText(getActivity(), "add succeed", Toast.LENGTH_SHORT).show();
-                    fanhandler.postDelayed(getfanlist,30);
                 }
+
                 break;
             case R.id.delete_curtain:
-                intodeletemode=!intodeletemode;
-                if(intodeletemode){
-                    add.setTitle("CANCLE DELETE");
-                    delete.setTitle("DELETE");
-                    if(type1list.size()>0){type1list.clear();}
-                    for(int i=0;i<roomfan.size();i++){
-                        switch(roomfan.get(i).fan_Type){
-                            case 1:
-                                FanType1 x=(FanType1)fancontrollayout.findViewById(roomfan.get(i).fan_id);
-                                type1list.add(x);
-                                x.setdeletevisable(true);
-                                break;
-                            default:break;
+                if(!MainActivity.islockchangeid){
+                    intodeletemode=!intodeletemode;
+                    if(intodeletemode){
+                        add.setTitle("CANCLE DELETE");
+                        delete.setTitle("DELETE");
+                        if(type1list.size()>0){type1list.clear();}
+                        for(int i=0;i<roomfan.size();i++){
+                            switch(roomfan.get(i).fan_Type){
+                                case 1:
+                                    FanType1 x=(FanType1)fancontrollayout.findViewById(roomfan.get(i).fan_id);
+                                    type1list.add(x);
+                                    x.setdeletevisable(true);
+                                    break;
+                                default:break;
+                            }
                         }
-                    }
-                }else{
-                    for(int i=0;i<type1list.size();i++){
-                        if(type1list.get(i).getIfneedtoDelete()){
-                            MainActivity.mgr.deletefan("fan", type1list.get(i).getType1fanid(), FounctionActivity.roomidfc);
+                    }else{
+                        for(int i=0;i<type1list.size();i++){
+                            if(type1list.get(i).getIfneedtoDelete()){
+                                MainActivity.mgr.deletefan("fan", type1list.get(i).getType1fanid(), FounctionActivity.roomidfc);
+                            }
                         }
+                        fanhandler.postDelayed(getfanlist,30);
+                        add.setTitle("ADD");
+                        delete.setTitle("DELETE");
+                        intodeletemode=false;
                     }
-                    fanhandler.postDelayed(getfanlist,30);
-                    add.setTitle("ADD");
-                    delete.setTitle("DELETE");
-                    intodeletemode=false;
+
                 }
 
                 break;
@@ -247,8 +253,11 @@ public class Fan extends Fragment {
             }else if(FounctionActivity.ACTION_DELETEFAN.equals(action)){
                 fanhandler.postDelayed(getfanlist, 30);
             }else if(FounctionActivity.ACTION_SHAKE.equals(action)){
-                int shaketype=(intent.getIntExtra("shake_type",0));
-                shakeperform(shaketype);
+                if(!MainActivity.islockshake){
+                    int shaketype=(intent.getIntExtra("shake_type",0));
+                    shakeperform(shaketype);
+                }
+
             }
         }
     };

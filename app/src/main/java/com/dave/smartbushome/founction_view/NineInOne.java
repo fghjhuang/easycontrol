@@ -176,89 +176,101 @@ public class NineInOne extends Fragment implements View.OnClickListener{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_nio:
-                addalter = new AlertView("Add 9in1", null, "CANCEL",  new String[]{"SAVE"},null , getActivity(), AlertView.Style.Alert,
-                        itemclick);
-                View selfview= getActivity().getLayoutInflater().inflate(R.layout.setting_acinfo, null);
-                sub = (EditText) selfview.findViewById(R.id.acsubedit);
-                dev = (EditText) selfview.findViewById(R.id.acdevedit);
-                remark = (EditText) selfview.findViewById(R.id.acremark);
-                sub.setText(String.valueOf(0));
-                dev.setText(String.valueOf(0));
-                if(roomniolist.size()==0){
-                    remark.setText("9in1device"+(1));
-                }else{
-                    remark.setText("9in1device"+(roomniolist.get(roomniolist.size()-1).nio_id+1));
+                if(!MainActivity.islockchangeid){
+                    addalter = new AlertView("Add 9in1", null, "CANCEL",  new String[]{"SAVE"},null , getActivity(), AlertView.Style.Alert,
+                            itemclick);
+                    View selfview= getActivity().getLayoutInflater().inflate(R.layout.setting_acinfo, null);
+                    sub = (EditText) selfview.findViewById(R.id.acsubedit);
+                    dev = (EditText) selfview.findViewById(R.id.acdevedit);
+                    remark = (EditText) selfview.findViewById(R.id.acremark);
+                    sub.setText(String.valueOf(0));
+                    dev.setText(String.valueOf(0));
+                    if(roomniolist.size()==0){
+                        remark.setText("9in1device"+(1));
+                    }else{
+                        remark.setText("9in1device"+(roomniolist.get(roomniolist.size()-1).nio_id+1));
+                    }
+                    addalter.addExtView(selfview);
+                    addalter.setCancelable(false);
+                    addalter.setShoulddismiss(false);
+                    addalter.show();
                 }
-                addalter.addExtView(selfview);
-                addalter.setCancelable(false);
-                addalter.setShoulddismiss(false);
-                addalter.show();
+
                 break;
             case R.id.delete_nio:
-                final String[] mItems=new String[roomniolist.size()] ;
-                for(int i=0;i<roomniolist.size();i++){
-                    mItems[i]=roomniolist.get(i).nio_remark;
-                }
-                deletealter = new AlertView("Select 9in1 to Delete", null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
-                        itemclick);
-                ViewGroup extView = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.listdialog, null);
-                ListView deletelist=(ListView)extView.findViewById(R.id.listView6);
-                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,400);
-                extView.setLayoutParams(lp);
-                deletelist.setAdapter(new ArrayAdapter(getActivity(),
-                        R.layout.simplelistitem, mItems));
-                deletelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        MainActivity.mgr.deletenio("nio", roomniolist.get(position).nio_id, FounctionActivity.roomidfc);
-                        Toast.makeText(getActivity(), "Delete Succeed", Toast.LENGTH_SHORT).show();
-                        getdatahandler.postDelayed(getdatarun, 30);
-                        deletealter.dismiss();
+                if(!MainActivity.islockchangeid){
+                    final String[] mItems=new String[roomniolist.size()] ;
+                    for(int i=0;i<roomniolist.size();i++){
+                        mItems[i]=roomniolist.get(i).nio_remark;
                     }
-                });
-                deletealter.addExtView(extView);
-                deletealter.show();
+                    deletealter = new AlertView("Select 9in1 to Delete", null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
+                            itemclick);
+                    ViewGroup extView = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.listdialog, null);
+                    ListView deletelist=(ListView)extView.findViewById(R.id.listView6);
+                    ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,400);
+                    extView.setLayoutParams(lp);
+                    deletelist.setAdapter(new ArrayAdapter(getActivity(),
+                            R.layout.simplelistitem, mItems));
+                    deletelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            MainActivity.mgr.deletenio("nio", roomniolist.get(position).nio_id, FounctionActivity.roomidfc);
+                            Toast.makeText(getActivity(), "Delete Succeed", Toast.LENGTH_SHORT).show();
+                            getdatahandler.postDelayed(getdatarun, 30);
+                            deletealter.dismiss();
+                        }
+                    });
+                    deletealter.addExtView(extView);
+                    deletealter.show();
+                }
+
                 break;
             case R.id.setting_nio:
-                settingalter = new AlertView("Settings", null, "CANCEL",  new String[]{"SAVE"}, null, getActivity(), AlertView.Style.Alert,
-                        itemclick);
-                View selfviewx= getActivity().getLayoutInflater().inflate(R.layout.setting_acinfo, null);
-                sub = (EditText) selfviewx.findViewById(R.id.acsubedit);
-                dev = (EditText) selfviewx.findViewById(R.id.acdevedit);
-                remark = (EditText) selfviewx.findViewById(R.id.acremark);
-                sub.setText(String.valueOf(thisniodevice.subnetID));
-                dev.setText(String.valueOf(thisniodevice.deviceID));
-                remark.setText(thisniodevice.nio_remark);
-                settingalter.addExtView(selfviewx);
-                settingalter.show();
+                if(!MainActivity.islockchangeid){
+                    settingalter = new AlertView("Settings", null, "CANCEL",  new String[]{"SAVE"}, null, getActivity(), AlertView.Style.Alert,
+                            itemclick);
+                    View selfviewx= getActivity().getLayoutInflater().inflate(R.layout.setting_acinfo, null);
+                    sub = (EditText) selfviewx.findViewById(R.id.acsubedit);
+                    dev = (EditText) selfviewx.findViewById(R.id.acdevedit);
+                    remark = (EditText) selfviewx.findViewById(R.id.acremark);
+                    sub.setText(String.valueOf(thisniodevice.subnetID));
+                    dev.setText(String.valueOf(thisniodevice.deviceID));
+                    remark.setText(thisniodevice.nio_remark);
+                    settingalter.addExtView(selfviewx);
+                    settingalter.show();
+                }
+
                 break;
             case R.id.autopair_nio:
-                pairalter = new AlertView("Select Device", null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
-                        itemclick);
-                View selfviewx2= getActivity().getLayoutInflater().inflate(R.layout.auto_pair_dialog, null);
-                ListView test=(ListView)selfviewx2.findViewById(R.id.listView4);
-                DeviceListAdapter mLeDeviceListAdapter= new DeviceListAdapter(getActivity(),MainActivity.netdeviceList);
-                test.setAdapter(mLeDeviceListAdapter);
-                test.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Savenio data = new Savenio();
-                        data.room_id = FounctionActivity.roomidfc;
-                        data.nio_id = thisniodevice.nio_id;
-                        data.nio_remark = thisniodevice.nio_remark;
-                        data.subnetID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("subnetID"));
-                        data.deviceID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("deviceID"));
-                        MainActivity.mgr.updateniosetting(data);
-                        renewdata();
-                        thisniodevice.subnetID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("subnetID"));
-                        thisniodevice.deviceID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("deviceID"));
-                        niocontrolview.setcontent(thisniodevice);
-                        Toast.makeText(getActivity(), "apir " + MainActivity.netdeviceList.get(position).get("devicename") + " succeed", Toast.LENGTH_SHORT).show();
-                        pairalter.dismiss();
-                    }
-                });
-                pairalter.addExtView(selfviewx2);
-                pairalter.show();
+                if(!MainActivity.islockchangeid){
+                    pairalter = new AlertView("Select Device", null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
+                            itemclick);
+                    View selfviewx2= getActivity().getLayoutInflater().inflate(R.layout.auto_pair_dialog, null);
+                    ListView test=(ListView)selfviewx2.findViewById(R.id.listView4);
+                    DeviceListAdapter mLeDeviceListAdapter= new DeviceListAdapter(getActivity(),MainActivity.netdeviceList);
+                    test.setAdapter(mLeDeviceListAdapter);
+                    test.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Savenio data = new Savenio();
+                            data.room_id = FounctionActivity.roomidfc;
+                            data.nio_id = thisniodevice.nio_id;
+                            data.nio_remark = thisniodevice.nio_remark;
+                            data.subnetID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("subnetID"));
+                            data.deviceID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("deviceID"));
+                            MainActivity.mgr.updateniosetting(data);
+                            renewdata();
+                            thisniodevice.subnetID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("subnetID"));
+                            thisniodevice.deviceID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("deviceID"));
+                            niocontrolview.setcontent(thisniodevice);
+                            Toast.makeText(getActivity(), "apir " + MainActivity.netdeviceList.get(position).get("devicename") + " succeed", Toast.LENGTH_SHORT).show();
+                            pairalter.dismiss();
+                        }
+                    });
+                    pairalter.addExtView(selfviewx2);
+                    pairalter.show();
+                }
+
                 break;
             default:break;
 

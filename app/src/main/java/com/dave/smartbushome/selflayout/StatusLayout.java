@@ -104,7 +104,10 @@ public class StatusLayout extends LinearLayout implements View.OnLongClickListen
 
 
     public boolean onLongClick(View v){
-        showPopupMenu(tv_name);
+        if(!MainActivity.islockchangeid){
+            showPopupMenu(tv_name);
+        }
+
         return true;
     }
 

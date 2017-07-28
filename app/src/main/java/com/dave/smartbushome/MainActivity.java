@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity  {
     public static DBManager mgr;
     public static udp_socket mydupsocket;
     public static Context maincontext;
+    public static boolean islockshake=false,islockchangeid=false;
     MusicNotifyReceiver mReceiver;
     public static List<HashMap<String,String>> netdeviceList=new ArrayList<HashMap<String, String>>();
     Toolbar toolbar;
@@ -194,6 +195,10 @@ public void initcreate(){
     }
     SharedPreferences sharedPre3 = getSharedPreferences("httpconfig", MODE_PRIVATE);
     udp_socket.rsipip = sharedPre3.getBoolean("ipset", false);
+
+    SharedPreferences sharedPre4 = getSharedPreferences("lockinfo", MODE_PRIVATE);
+    islockshake = sharedPre4.getBoolean("lockshake", false);
+    islockchangeid= sharedPre4.getBoolean("lockchangeid", false);
     if(udp_socket.rsipip){
         String mac=sharedPre3.getString("MacAddress", "");
         if(mac.equals("")){

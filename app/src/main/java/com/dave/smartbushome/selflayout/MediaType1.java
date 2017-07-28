@@ -376,46 +376,49 @@ public class MediaType1 extends RelativeLayout implements View.OnClickListener,V
         }
     }
     public boolean onLongClick(View v){
-        switch (v.getId()){
-            case R.id.mediatype1_on:
-                setbuttoninfo(1);
-                break;
-            case R.id.mediatype1_off:
-                setbuttoninfo(2);
-                break;
-            case R.id.mediatype1_min:
-                setbuttoninfo(3);
-                break;
-            case R.id.mediatype1_plus:
-                setbuttoninfo(4);
-                break;
-            case R.id.mediatype1_mute:
-                setbuttoninfo(5);
-                break;
-            case R.id.mediatype1_v1:
-                setbuttoninfo(11);
-                break;
-            case R.id.mediatype1_v2:
-                setbuttoninfo(12);
-                break;
-            case R.id.mediatype1_v3:
-                setbuttoninfo(13);
-                break;
-            case R.id.mediatype1_v4:
-                setbuttoninfo(14);
-                break;
-            case R.id.mediatype1_num:
-                break;
-            case R.id.mediatype1_back:
-                setbuttoninfo(15);
-                break;
-            case R.id.mediatype1_home:
-                setbuttoninfo(16);
-                break;
-            case R.id.mediatype1_setting:
-                setbuttoninfo(17);
-                break;
+        if(!MainActivity.islockchangeid){
+            switch (v.getId()){
+                case R.id.mediatype1_on:
+                    setbuttoninfo(1);
+                    break;
+                case R.id.mediatype1_off:
+                    setbuttoninfo(2);
+                    break;
+                case R.id.mediatype1_min:
+                    setbuttoninfo(3);
+                    break;
+                case R.id.mediatype1_plus:
+                    setbuttoninfo(4);
+                    break;
+                case R.id.mediatype1_mute:
+                    setbuttoninfo(5);
+                    break;
+                case R.id.mediatype1_v1:
+                    setbuttoninfo(11);
+                    break;
+                case R.id.mediatype1_v2:
+                    setbuttoninfo(12);
+                    break;
+                case R.id.mediatype1_v3:
+                    setbuttoninfo(13);
+                    break;
+                case R.id.mediatype1_v4:
+                    setbuttoninfo(14);
+                    break;
+                case R.id.mediatype1_num:
+                    break;
+                case R.id.mediatype1_back:
+                    setbuttoninfo(15);
+                    break;
+                case R.id.mediatype1_home:
+                    setbuttoninfo(16);
+                    break;
+                case R.id.mediatype1_setting:
+                    setbuttoninfo(17);
+                    break;
+            }
         }
+
         return true;
     }
     AlertView settingalter;

@@ -15,7 +15,8 @@
     <string name="add_nio">You don\'t have a 9 in 1 device,Click here to add a 9 in 1</string>
     <string name="add_status">You don\'t have a device,Click here to add one</string>
     <string name="ddns_warm">ex - www.google.com</string>
-    <string name="update">v1.6.4 motify media button function
+    <string name="update">v1.7.0 add lockID and shake function
+        \nv1.6.4 motify media button function
         \nv1.6.3 motify schedule function and change some UI
         \nv1.6.2 chang music UI and record curtain last state
         \nv1.6.1 fix some link issue

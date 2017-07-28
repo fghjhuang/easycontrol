@@ -98,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Away"
-        android:drawableLeft="@mipmap/security_night"
+        android:drawableLeft="@mipmap/security_away"
         android:id="@+id/security_away"
         android:onClick="away"
         android:background="@drawable/alllightbutton"

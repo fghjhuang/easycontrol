@@ -157,86 +157,98 @@ public class HAVC extends Fragment implements View.OnClickListener{
         }
         switch (item.getItemId()) {
             case R.id.hvacsetting:
-                settingalter = new AlertView("Settings", null, "CANCEL",  new String[]{"SAVE"}, null, getActivity(), AlertView.Style.Alert,
-                        itemclick);
-                View selfview= getActivity().getLayoutInflater().inflate(R.layout.setting_acinfo, null);
-                sub = (EditText) selfview.findViewById(R.id.acsubedit);
-                dev = (EditText) selfview.findViewById(R.id.acdevedit);
-                remark = (EditText) selfview.findViewById(R.id.acremark);
-                sub.setText(String.valueOf(roomhvacdata.subnetID));
-                dev.setText(String.valueOf(roomhvacdata.deviceID));
-                remark.setText(roomhvacdata.hvac_remark);
-                settingalter.addExtView(selfview);
-                settingalter.show();
+                if(!MainActivity.islockchangeid){
+                    settingalter = new AlertView("Settings", null, "CANCEL",  new String[]{"SAVE"}, null, getActivity(), AlertView.Style.Alert,
+                            itemclick);
+                    View selfview= getActivity().getLayoutInflater().inflate(R.layout.setting_acinfo, null);
+                    sub = (EditText) selfview.findViewById(R.id.acsubedit);
+                    dev = (EditText) selfview.findViewById(R.id.acdevedit);
+                    remark = (EditText) selfview.findViewById(R.id.acremark);
+                    sub.setText(String.valueOf(roomhvacdata.subnetID));
+                    dev.setText(String.valueOf(roomhvacdata.deviceID));
+                    remark.setText(roomhvacdata.hvac_remark);
+                    settingalter.addExtView(selfview);
+                    settingalter.show();
+                }
+
                 break;
 
             case R.id.hvac_add:
-                addalter = new AlertView("Settings", null, "CANCEL", new String[]{"SAVE"},  null, getActivity(), AlertView.Style.Alert,
-                        itemclick);
-                View selfviewadd= getActivity().getLayoutInflater().inflate(R.layout.setting_acinfo, null);
-                sub = (EditText) selfviewadd.findViewById(R.id.acsubedit);
-                dev = (EditText) selfviewadd.findViewById(R.id.acdevedit);
-                remark = (EditText) selfviewadd.findViewById(R.id.acremark);
-                sub.setText(String.valueOf(0));
-                dev.setText(String.valueOf(0));
-                if(roomhvac.size()==0){
-                    remark.setText("HV"+1);
-                }else{
-                    remark.setText("HV"+(roomhvac.get(roomhvac.size()-1).hvac_id+1));
+                if(!MainActivity.islockchangeid){
+                    addalter = new AlertView("Settings", null, "CANCEL", new String[]{"SAVE"},  null, getActivity(), AlertView.Style.Alert,
+                            itemclick);
+                    View selfviewadd= getActivity().getLayoutInflater().inflate(R.layout.setting_acinfo, null);
+                    sub = (EditText) selfviewadd.findViewById(R.id.acsubedit);
+                    dev = (EditText) selfviewadd.findViewById(R.id.acdevedit);
+                    remark = (EditText) selfviewadd.findViewById(R.id.acremark);
+                    sub.setText(String.valueOf(0));
+                    dev.setText(String.valueOf(0));
+                    if(roomhvac.size()==0){
+                        remark.setText("HV"+1);
+                    }else{
+                        remark.setText("HV"+(roomhvac.get(roomhvac.size()-1).hvac_id+1));
+                    }
+                    addalter.addExtView(selfviewadd);
+                    addalter.setCancelable(false);
+                    addalter.setShoulddismiss(false);
+                    addalter.show();
                 }
-                addalter.addExtView(selfviewadd);
-                addalter.setCancelable(false);
-                addalter.setShoulddismiss(false);
-                addalter.show();
+
                 break;
             case R.id.hvac_delete:
-                deletealter = new AlertView("Select AC to Delete", null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
-                        itemclick);
-                ViewGroup extView = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.listdialog, null);
-                ListView deletelist=(ListView)extView.findViewById(R.id.listView6);
-                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,400);
-                extView.setLayoutParams(lp);
-                deletelist.setAdapter(new ArrayAdapter(getActivity(),
-                        R.layout.simplelistitem, mItems));
-                deletelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        MainActivity.mgr.deletehvac("hvac", roomhvac.get(position).hvac_id, FounctionActivity.roomidfc);
-                        Toast.makeText(getActivity(), "Delete Succeed", Toast.LENGTH_SHORT).show();
-                        hvachandler.postDelayed(gethvactag, 30);
-                        deletealter.dismiss();
-                    }
-                });
-                deletealter.addExtView(extView);
-                deletealter.show();
+                if(!MainActivity.islockchangeid){
+                    deletealter = new AlertView("Select AC to Delete", null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
+                            itemclick);
+                    ViewGroup extView = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.listdialog, null);
+                    ListView deletelist=(ListView)extView.findViewById(R.id.listView6);
+                    ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,400);
+                    extView.setLayoutParams(lp);
+                    deletelist.setAdapter(new ArrayAdapter(getActivity(),
+                            R.layout.simplelistitem, mItems));
+                    deletelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            MainActivity.mgr.deletehvac("hvac", roomhvac.get(position).hvac_id, FounctionActivity.roomidfc);
+                            Toast.makeText(getActivity(), "Delete Succeed", Toast.LENGTH_SHORT).show();
+                            hvachandler.postDelayed(gethvactag, 30);
+                            deletealter.dismiss();
+                        }
+                    });
+                    deletealter.addExtView(extView);
+                    deletealter.show();
+                }
+
                 break;
             case R.id.hvacpair:
-                pairalter = new AlertView("Select Device", null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
-                        itemclick);
-                View selfviewx= getActivity().getLayoutInflater().inflate(R.layout.auto_pair_dialog, null);
-                ListView test=(ListView)selfviewx.findViewById(R.id.listView4);
-                DeviceListAdapter mLeDeviceListAdapter= new DeviceListAdapter(getActivity(),MainActivity.netdeviceList);
-                test.setAdapter(mLeDeviceListAdapter);
-                test.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Savehvac data = new Savehvac();
-                        data.room_id = FounctionActivity.roomidfc;
-                        data.hvac_id = roomhvacdata.hvac_id;
-                        data.hvac_remark = roomhvacdata.hvac_remark;
-                        data.subnetID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("subnetID"));
-                        data.deviceID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("deviceID"));
-                        MainActivity.mgr.updatehvac(data);
-                        renewdata();
-                        roomhvacdata.subnetID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("subnetID"));
-                        roomhvacdata.deviceID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("deviceID"));
-                        hl.setcontant(roomhvacdata);
-                        Toast.makeText(getActivity(), "apir " + MainActivity.netdeviceList.get(position).get("devicename") + " succeed", Toast.LENGTH_SHORT).show();
-                        pairalter.dismiss();
-                    }
-                });
-                pairalter.addExtView(selfviewx);
-                pairalter.show();
+                if(!MainActivity.islockchangeid){
+                    pairalter = new AlertView("Select Device", null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
+                            itemclick);
+                    View selfviewx= getActivity().getLayoutInflater().inflate(R.layout.auto_pair_dialog, null);
+                    ListView test=(ListView)selfviewx.findViewById(R.id.listView4);
+                    DeviceListAdapter mLeDeviceListAdapter= new DeviceListAdapter(getActivity(),MainActivity.netdeviceList);
+                    test.setAdapter(mLeDeviceListAdapter);
+                    test.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Savehvac data = new Savehvac();
+                            data.room_id = FounctionActivity.roomidfc;
+                            data.hvac_id = roomhvacdata.hvac_id;
+                            data.hvac_remark = roomhvacdata.hvac_remark;
+                            data.subnetID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("subnetID"));
+                            data.deviceID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("deviceID"));
+                            MainActivity.mgr.updatehvac(data);
+                            renewdata();
+                            roomhvacdata.subnetID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("subnetID"));
+                            roomhvacdata.deviceID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("deviceID"));
+                            hl.setcontant(roomhvacdata);
+                            Toast.makeText(getActivity(), "apir " + MainActivity.netdeviceList.get(position).get("devicename") + " succeed", Toast.LENGTH_SHORT).show();
+                            pairalter.dismiss();
+                        }
+                    });
+                    pairalter.addExtView(selfviewx);
+                    pairalter.show();
+                }
+
 
                 break;
             default:break;
@@ -410,8 +422,11 @@ public void renewdata(){
                 }
 
             }else if(FounctionActivity.ACTION_SHAKE.equals(action)){
-                int shaketype=(intent.getIntExtra("shake_type",0));
-                shakeperform(shaketype);
+                if(!MainActivity.islockshake){
+                    int shaketype=(intent.getIntExtra("shake_type",0));
+                    shakeperform(shaketype);
+                }
+
             }
         }
     };

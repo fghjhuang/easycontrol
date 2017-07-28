@@ -131,90 +131,102 @@ public class Media extends Fragment implements View.OnClickListener{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mediasetting:
-                settingalter = new AlertView("Settings", null, "CANCEL",  new String[]{"SAVE"}, null, getActivity(), AlertView.Style.Alert,
-                        itemclick);
-                View selfview= getActivity().getLayoutInflater().inflate(R.layout.setting_acinfo, null);
-                sub = (EditText) selfview.findViewById(R.id.acsubedit);
-                dev = (EditText) selfview.findViewById(R.id.acdevedit);
-                remark = (EditText) selfview.findViewById(R.id.acremark);
-                sub.setText(String.valueOf(roommediadata.subnetID));
-                dev.setText(String.valueOf(roommediadata.deviceID));
-                remark.setText(roommediadata.media_statement);
-                settingalter.addExtView(selfview);
-                settingalter.show();
+                if(!MainActivity.islockchangeid){
+                    settingalter = new AlertView("Settings", null, "CANCEL",  new String[]{"SAVE"}, null, getActivity(), AlertView.Style.Alert,
+                            itemclick);
+                    View selfview= getActivity().getLayoutInflater().inflate(R.layout.setting_acinfo, null);
+                    sub = (EditText) selfview.findViewById(R.id.acsubedit);
+                    dev = (EditText) selfview.findViewById(R.id.acdevedit);
+                    remark = (EditText) selfview.findViewById(R.id.acremark);
+                    sub.setText(String.valueOf(roommediadata.subnetID));
+                    dev.setText(String.valueOf(roommediadata.deviceID));
+                    remark.setText(roommediadata.media_statement);
+                    settingalter.addExtView(selfview);
+                    settingalter.show();
+                }
+
                 break;
             case R.id.mediapair:
-                pairalter = new AlertView("Select Device", null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
-                        itemclick);
-                View selfviewx= getActivity().getLayoutInflater().inflate(R.layout.auto_pair_dialog, null);
-                ListView test=(ListView)selfviewx.findViewById(R.id.listView4);
-                DeviceListAdapter mLeDeviceListAdapter= new DeviceListAdapter(getActivity(),MainActivity.netdeviceList);
-                test.setAdapter(mLeDeviceListAdapter);
-                test.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Savemedia data = new Savemedia();
-                        data.room_id = FounctionActivity.roomidfc;
-                        data.media_id = roommediadata.media_id;
-                        data.media_statement = roommediadata.media_statement;
-                        data.subnetID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("subnetID"));
-                        data.deviceID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("deviceID"));
-                        MainActivity.mgr.updatemedia(data);
-                        renewdata();
-                        roommediadata.subnetID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("subnetID"));
-                        roommediadata.deviceID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("deviceID"));
-                        mediacontrolview.setcontent(roommediadata);
-                        Toast.makeText(getActivity(), "apir " + MainActivity.netdeviceList.get(position).get("devicename") + " succeed", Toast.LENGTH_SHORT).show();
-                        pairalter.dismiss();
-                    }
-                });
-                pairalter.addExtView(selfviewx);
-                pairalter.show();
+                if(!MainActivity.islockchangeid){
+                    pairalter = new AlertView("Select Device", null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
+                            itemclick);
+                    View selfviewx= getActivity().getLayoutInflater().inflate(R.layout.auto_pair_dialog, null);
+                    ListView test=(ListView)selfviewx.findViewById(R.id.listView4);
+                    DeviceListAdapter mLeDeviceListAdapter= new DeviceListAdapter(getActivity(),MainActivity.netdeviceList);
+                    test.setAdapter(mLeDeviceListAdapter);
+                    test.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Savemedia data = new Savemedia();
+                            data.room_id = FounctionActivity.roomidfc;
+                            data.media_id = roommediadata.media_id;
+                            data.media_statement = roommediadata.media_statement;
+                            data.subnetID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("subnetID"));
+                            data.deviceID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("deviceID"));
+                            MainActivity.mgr.updatemedia(data);
+                            renewdata();
+                            roommediadata.subnetID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("subnetID"));
+                            roommediadata.deviceID = Integer.parseInt(MainActivity.netdeviceList.get(position).get("deviceID"));
+                            mediacontrolview.setcontent(roommediadata);
+                            Toast.makeText(getActivity(), "apir " + MainActivity.netdeviceList.get(position).get("devicename") + " succeed", Toast.LENGTH_SHORT).show();
+                            pairalter.dismiss();
+                        }
+                    });
+                    pairalter.addExtView(selfviewx);
+                    pairalter.show();
+                }
+
                 break;
             case R.id.media_add:
-                addalter = new AlertView("Settings", null, "CANCEL", new String[]{"SAVE"},  null, getActivity(), AlertView.Style.Alert,
-                        itemclick);
-                View selfviewadd= getActivity().getLayoutInflater().inflate(R.layout.setting_acinfo, null);
-                sub = (EditText) selfviewadd.findViewById(R.id.acsubedit);
-                dev = (EditText) selfviewadd.findViewById(R.id.acdevedit);
-                remark = (EditText) selfviewadd.findViewById(R.id.acremark);
-                sub.setText(String.valueOf(0));
-                dev.setText(String.valueOf(0));
-                if(roommedia.size()==0){
-                    remark.setText("Media"+(1));
-                }else{
-                    remark.setText("Media"+(roommedia.get(roommedia.size()-1).media_id+1));
+                if(!MainActivity.islockchangeid){
+                    addalter = new AlertView("Settings", null, "CANCEL", new String[]{"SAVE"},  null, getActivity(), AlertView.Style.Alert,
+                            itemclick);
+                    View selfviewadd= getActivity().getLayoutInflater().inflate(R.layout.setting_acinfo, null);
+                    sub = (EditText) selfviewadd.findViewById(R.id.acsubedit);
+                    dev = (EditText) selfviewadd.findViewById(R.id.acdevedit);
+                    remark = (EditText) selfviewadd.findViewById(R.id.acremark);
+                    sub.setText(String.valueOf(0));
+                    dev.setText(String.valueOf(0));
+                    if(roommedia.size()==0){
+                        remark.setText("Media"+(1));
+                    }else{
+                        remark.setText("Media"+(roommedia.get(roommedia.size()-1).media_id+1));
+                    }
+                    addalter.addExtView(selfviewadd);
+                    addalter.setCancelable(false);
+                    addalter.setShoulddismiss(false);
+                    addalter.show();
                 }
-                addalter.addExtView(selfviewadd);
-                addalter.setCancelable(false);
-                addalter.setShoulddismiss(false);
-                addalter.show();
+
                 break;
             case R.id.media_delete:
-                final String[] mItems=new String[roommedia.size()] ;
-                for(int i=0;i<roommedia.size();i++){
-                    mItems[i]=roommedia.get(i).media_statement;
-                }
-                deletealter = new AlertView("Select Media to Delete", null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
-                        itemclick);
-                ViewGroup extView = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.listdialog, null);
-                ListView deletelist=(ListView)extView.findViewById(R.id.listView6);
-                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,400);
-                extView.setLayoutParams(lp);
-                deletelist.setAdapter(new ArrayAdapter(getActivity(),
-                        R.layout.simplelistitem, mItems));
-                deletelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        MainActivity.mgr.deletemedia("media", roommedia.get(position).media_id, FounctionActivity.roomidfc);
-                        MainActivity.mgr.deletemediabutton("mediabutton", roommedia.get(position).media_id, FounctionActivity.roomidfc);
-                        Toast.makeText(getActivity(), "Delete Succeed", Toast.LENGTH_SHORT).show();
-                        getdatahandler.postDelayed(getdatarun, 30);
-                        deletealter.dismiss();
+                if(!MainActivity.islockchangeid){
+                    final String[] mItems=new String[roommedia.size()] ;
+                    for(int i=0;i<roommedia.size();i++){
+                        mItems[i]=roommedia.get(i).media_statement;
                     }
-                });
-                deletealter.addExtView(extView);
-                deletealter.show();
+                    deletealter = new AlertView("Select Media to Delete", null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
+                            itemclick);
+                    ViewGroup extView = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.listdialog, null);
+                    ListView deletelist=(ListView)extView.findViewById(R.id.listView6);
+                    ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,400);
+                    extView.setLayoutParams(lp);
+                    deletelist.setAdapter(new ArrayAdapter(getActivity(),
+                            R.layout.simplelistitem, mItems));
+                    deletelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            MainActivity.mgr.deletemedia("media", roommedia.get(position).media_id, FounctionActivity.roomidfc);
+                            MainActivity.mgr.deletemediabutton("mediabutton", roommedia.get(position).media_id, FounctionActivity.roomidfc);
+                            Toast.makeText(getActivity(), "Delete Succeed", Toast.LENGTH_SHORT).show();
+                            getdatahandler.postDelayed(getdatarun, 30);
+                            deletealter.dismiss();
+                        }
+                    });
+                    deletealter.addExtView(extView);
+                    deletealter.show();
+                }
+
                 break;
         }
         return super.onOptionsItemSelected(item);

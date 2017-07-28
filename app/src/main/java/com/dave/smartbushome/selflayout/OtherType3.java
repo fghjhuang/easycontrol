@@ -144,7 +144,10 @@ public class OtherType3 extends LinearLayout implements View.OnClickListener,Vie
         FounctionActivity.fcontext.sendBroadcast(intent);
     }
     public boolean onLongClick(View v){
-        showPopupMenu(tv_remark);
+        if(!MainActivity.islockchangeid){
+            showPopupMenu(tv_remark);
+        }
+
 
         return true;
     }

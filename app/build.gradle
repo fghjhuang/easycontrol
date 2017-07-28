@@ -7,8 +7,8 @@ android {
         applicationId "com.dave.smartbushome"
         minSdkVersion 15
         targetSdkVersion 24
-        versionName '1.6.4'
-        versionCode 13
+        versionName '1.7.0'
+        versionCode 15
     }
     buildTypes {
         release {

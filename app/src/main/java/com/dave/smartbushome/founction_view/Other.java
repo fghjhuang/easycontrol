@@ -113,114 +113,120 @@ public class Other extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.light_add:
-                if(intodeletemode){
-                    add.setTitle("ADD");
-                    delete.setTitle("DELETE");
-                    intodeletemode=false;
-                    for(int i=0;i<type1list.size();i++){
-                        type1list.get(i).setdeletevisable(false);
-                    }
-                    for(int i=0;i<type2list.size();i++){
-                        type2list.get(i).setdeletevisable(false);
-                    }
-                    for(int i=0;i<type3list.size();i++){
-                        type3list.get(i).setdeletevisable(false);
-                    }
-                }else{
-                    final ListView typelist=new ListView(getActivity());
-                    addingalter = new AlertView(null, null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
-                            itemclick);
-                    typelist.setAdapter(new OnoffTypeAdapter(getActivity()));
-                    typelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            int onoff_id;
-                            if (roomonoff.size() == 0) {
-                                onoff_id = 1;
-                            } else {
-                                onoff_id = roomonoff.get(roomonoff.size() - 1).other_id + 1;
-                            }
-                            ArrayList<Saveother> tips = new ArrayList<Saveother>();
-                            switch (position) {
-                                case 0:
-                                    Saveother type1 = new Saveother(FounctionActivity.roomidfc,
-                                            0, 0, onoff_id, 0, 0, "other" + onoff_id, "other_icon1", 1);
-                                    tips.add(type1);
-                                    MainActivity.mgr.addother(tips);
-                                    break;
-                                case 1:
-                                    Saveother type2 = new Saveother(FounctionActivity.roomidfc,
-                                            0, 0, onoff_id, 0, 0, "other" + onoff_id, "other_icon1", 2);
-                                    tips.add(type2);
-                                    MainActivity.mgr.addother(tips);
-                                    break;
-                                case 2:
-                                    Saveother type3 = new Saveother(FounctionActivity.roomidfc,
-                                            0, 0, onoff_id, 0, 0, "other" + onoff_id, "other_icon1", 3);
-                                    tips.add(type3);
-                                    MainActivity.mgr.addother(tips);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            onoffhandle.postDelayed(getonofflist, 30);
-                            addingalter.dismiss();
+                if(!MainActivity.islockchangeid){
+                    if(intodeletemode){
+                        add.setTitle("ADD");
+                        delete.setTitle("DELETE");
+                        intodeletemode=false;
+                        for(int i=0;i<type1list.size();i++){
+                            type1list.get(i).setdeletevisable(false);
                         }
-                    });
-                    addingalter.addExtView(typelist);
-                    addingalter.show();
+                        for(int i=0;i<type2list.size();i++){
+                            type2list.get(i).setdeletevisable(false);
+                        }
+                        for(int i=0;i<type3list.size();i++){
+                            type3list.get(i).setdeletevisable(false);
+                        }
+                    }else{
+                        final ListView typelist=new ListView(getActivity());
+                        addingalter = new AlertView(null, null, "CANCEL",  null, null, getActivity(), AlertView.Style.Alert,
+                                itemclick);
+                        typelist.setAdapter(new OnoffTypeAdapter(getActivity()));
+                        typelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                int onoff_id;
+                                if (roomonoff.size() == 0) {
+                                    onoff_id = 1;
+                                } else {
+                                    onoff_id = roomonoff.get(roomonoff.size() - 1).other_id + 1;
+                                }
+                                ArrayList<Saveother> tips = new ArrayList<Saveother>();
+                                switch (position) {
+                                    case 0:
+                                        Saveother type1 = new Saveother(FounctionActivity.roomidfc,
+                                                0, 0, onoff_id, 0, 0, "other" + onoff_id, "other_icon1", 1);
+                                        tips.add(type1);
+                                        MainActivity.mgr.addother(tips);
+                                        break;
+                                    case 1:
+                                        Saveother type2 = new Saveother(FounctionActivity.roomidfc,
+                                                0, 0, onoff_id, 0, 0, "other" + onoff_id, "other_icon1", 2);
+                                        tips.add(type2);
+                                        MainActivity.mgr.addother(tips);
+                                        break;
+                                    case 2:
+                                        Saveother type3 = new Saveother(FounctionActivity.roomidfc,
+                                                0, 0, onoff_id, 0, 0, "other" + onoff_id, "other_icon1", 3);
+                                        tips.add(type3);
+                                        MainActivity.mgr.addother(tips);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                onoffhandle.postDelayed(getonofflist, 30);
+                                addingalter.dismiss();
+                            }
+                        });
+                        addingalter.addExtView(typelist);
+                        addingalter.show();
+                    }
                 }
+
                 break;
             case R.id.light_remove:
-                intodeletemode=!intodeletemode;
-                if(intodeletemode){
-                    add.setTitle("CANCLE DELETE");
-                    delete.setTitle("DELETE");
-                    if(type1list.size()>0){type1list.clear();}
-                    if(type2list.size()>0){type2list.clear();}
-                    if(type3list.size()>0){type3list.clear();}
-                    for(int i=0;i<roomonoff.size();i++){
-                        switch(roomonoff.get(i).other_type){
-                            case 1:
-                                OtherType1 x=(OtherType1)othercontrollayout.findViewById(roomonoff.get(i).other_id);
-                                type1list.add(x);
-                                x.setdeletevisable(true);
-                                break;
-                            case 2:
-                                OtherType2 x2=(OtherType2)othercontrollayout.findViewById(roomonoff.get(i).other_id);
-                                type2list.add(x2);
-                                x2.setdeletevisable(true);
-                                break;
-                            case 3:
-                                OtherType3 x3=(OtherType3)othercontrollayout.findViewById(roomonoff.get(i).other_id);
-                                type3list.add(x3);
-                                x3.setdeletevisable(true);
-                                break;
-                            default:break;
-                        }
+                if(!MainActivity.islockchangeid){
+                    intodeletemode=!intodeletemode;
+                    if(intodeletemode){
+                        add.setTitle("CANCLE DELETE");
+                        delete.setTitle("DELETE");
+                        if(type1list.size()>0){type1list.clear();}
+                        if(type2list.size()>0){type2list.clear();}
+                        if(type3list.size()>0){type3list.clear();}
+                        for(int i=0;i<roomonoff.size();i++){
+                            switch(roomonoff.get(i).other_type){
+                                case 1:
+                                    OtherType1 x=(OtherType1)othercontrollayout.findViewById(roomonoff.get(i).other_id);
+                                    type1list.add(x);
+                                    x.setdeletevisable(true);
+                                    break;
+                                case 2:
+                                    OtherType2 x2=(OtherType2)othercontrollayout.findViewById(roomonoff.get(i).other_id);
+                                    type2list.add(x2);
+                                    x2.setdeletevisable(true);
+                                    break;
+                                case 3:
+                                    OtherType3 x3=(OtherType3)othercontrollayout.findViewById(roomonoff.get(i).other_id);
+                                    type3list.add(x3);
+                                    x3.setdeletevisable(true);
+                                    break;
+                                default:break;
+                            }
 
-                    }
-                }else{
-                    for(int i=0;i<type1list.size();i++){
-                        if(type1list.get(i).getIfneedtoDelete()){
-                            MainActivity.mgr.deleteother("other", type1list.get(i).getType1otherid(), FounctionActivity.roomidfc);
                         }
-                    }
-                    for(int i=0;i<type2list.size();i++){
-                        if(type2list.get(i).getIfneedtoDelete()){
-                            MainActivity.mgr.deleteother("other", type2list.get(i).getType2otherid(), FounctionActivity.roomidfc);
+                    }else{
+                        for(int i=0;i<type1list.size();i++){
+                            if(type1list.get(i).getIfneedtoDelete()){
+                                MainActivity.mgr.deleteother("other", type1list.get(i).getType1otherid(), FounctionActivity.roomidfc);
+                            }
                         }
-                    }
-                    for(int i=0;i<type3list.size();i++){
-                        if(type3list.get(i).getIfneedtoDelete()){
-                            MainActivity.mgr.deleteother("other", type3list.get(i).getType3otherid(), FounctionActivity.roomidfc);
+                        for(int i=0;i<type2list.size();i++){
+                            if(type2list.get(i).getIfneedtoDelete()){
+                                MainActivity.mgr.deleteother("other", type2list.get(i).getType2otherid(), FounctionActivity.roomidfc);
+                            }
                         }
+                        for(int i=0;i<type3list.size();i++){
+                            if(type3list.get(i).getIfneedtoDelete()){
+                                MainActivity.mgr.deleteother("other", type3list.get(i).getType3otherid(), FounctionActivity.roomidfc);
+                            }
+                        }
+                        onoffhandle.postDelayed(getonofflist,30);
+                        add.setTitle("ADD");
+                        delete.setTitle("DELETE");
+                        intodeletemode=false;
                     }
-                    onoffhandle.postDelayed(getonofflist,30);
-                    add.setTitle("ADD");
-                    delete.setTitle("DELETE");
-                    intodeletemode=false;
                 }
+
 
                 break;
             default:break;
